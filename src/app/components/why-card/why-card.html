@@ -2,7 +2,7 @@
   <div
     class="w-16 h-16 mb-2 rounded-2xl border flex items-center justify-center group-hover:scale-110 transition-all duration-500"
     [style.borderColor]="borderColor" [style.backgroundColor]="backgroundColor">
-    <lucide-icon [color]="borderColor" [img]="icon" size="28"></lucide-icon>
+    <svg [lucideIcon]="icon" [color]="borderColor" size="28"></svg>
   </div>
   <h3 class="mb-3 text-lg font-bold">{{title}}</h3>
   <p class="text-md text-gray-400">{{description}}</p>

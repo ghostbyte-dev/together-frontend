@@ -1,6 +1,6 @@
 <button [type]="type" (click)="onClick()" [disabled]="disabled || isLoading" [class]="customClasses">
   @if (isLoading) {
-  <lucide-icon [img]="loaderIcon" class="animate-spin" size="16"></lucide-icon>
+  <svg lucideLoader class="animate-spin" size="16"></svg>
   } @else {
   {{ label }}
   }

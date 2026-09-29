@@ -7,15 +7,6 @@ import { UserService } from 'src/app/services/user.service';
 import { CreateCommunityComponent } from 'src/app/components/create-community/create-community.component';
 import { Community } from 'src/app/models/community.model';
 import { CommunityService } from 'src/app/services/community.service';
-import {
-  ArrowLeftIcon,
-  ArrowLeftRightIcon,
-  HousePlusIcon,
-  LogOutIcon,
-  LucideAngularModule,
-  PenIcon,
-  SettingsIcon,
-} from 'lucide-angular';
 import { Router, RouterModule } from '@angular/router';
 import { Navbar } from 'src/app/components/navbar/navbar';
 import { AuthService } from 'src/app/services/auth.service';
@@ -32,6 +23,7 @@ import { ProfileImageEditorComponent } from 'src/app/components/profile-image-ed
 import { PrimaryButton } from 'src/app/components/primary-button/primary-button';
 import { TranslocoModule } from '@jsverse/transloco';
 import { LanguageSwitcher } from "src/app/components/language-switcher/language-switcher";
+import { LucideArrowLeft, LucideArrowRight, LucideHousePlus, LucideLogOut, LucidePen, LucideSettings } from '@lucide/angular';
 
 @Component({
   selector: 'app-onboarding',
@@ -42,21 +34,20 @@ import { LanguageSwitcher } from "src/app/components/language-switcher/language-
     CreateCommunityComponent,
     ProfileImageEditorComponent,
     ReactiveFormsModule,
-    LucideAngularModule,
     RouterModule,
     Navbar,
     PrimaryButton,
     TranslocoModule,
-    LanguageSwitcher
+    LanguageSwitcher,
+    LucideArrowLeft,
+    LucideArrowRight,
+    LucideLogOut,
+    LucidePen,
+    LucideSettings,
+    LucideHousePlus
 ],
 })
 export class OnboardingComponent implements OnInit {
-  readonly switchIcon = ArrowLeftRightIcon;
-  readonly backIcon = ArrowLeftIcon;
-  readonly logoutIcon = LogOutIcon;
-  readonly penIcon = PenIcon;
-  readonly settingsIcon = SettingsIcon;
-  readonly noCommunityIcon = HousePlusIcon;
 
   subscriptions: Subscription[] = [];
 

@@ -2,7 +2,7 @@
 
   <app-navbar [title]="t('title')">
     <a left routerLink="/debts" class="btn-neutral aspect-square px-0">
-      <lucide-icon [img]="backIcon"></lucide-icon>
+      <svg lucideArrowLeft></svg>
     </a>
   </app-navbar>
 
@@ -18,10 +18,10 @@
         </p>
 
         @if (debt.creditor.id === currentUser?.id) {
-        <lucide-icon [img]="stinksIcon" class="text-red-500"></lucide-icon>
+        <svg lucideTrendingDown class="text-red-500"></svg>
         }
         @if (debt.creditor.id !== currentUser?.id) {
-        <lucide-icon [img]="stonksIcon" class="text-green-400"></lucide-icon>
+        <svg lucideTrendingUp class="text-green-400"></svg>
         }
       </div>
 
@@ -36,7 +36,7 @@
         <!-- Right Col -->
         <div class="flex flex-col items-center">
           <p class="text-base m-0">{{debt.creditor.name}}</p>
-          <lucide-icon [img]="arrowDown"></lucide-icon>
+          <svg lucideTrendingDown></svg>
           <p class="text-base m-0">{{debt.debitor.name}}</p>
         </div>
       </div>

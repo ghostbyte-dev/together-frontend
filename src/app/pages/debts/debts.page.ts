@@ -8,14 +8,7 @@ import {
 } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { TranslocoModule } from '@jsverse/transloco';
-import {
-  CheckCheckIcon,
-  HistoryIcon,
-  LucideAngularModule,
-  PlusIcon,
-  ScaleIcon,
-  XIcon,
-} from 'lucide-angular';
+import { LucideCheckCheck, LucideHistory, LucidePlus, LucideScale, LucideX } from '@lucide/angular';
 import { Subscription } from 'rxjs';
 import { Navbar } from 'src/app/components/navbar/navbar';
 import { PopupComponent } from 'src/app/components/popup/popup.component';
@@ -32,18 +25,17 @@ import { UserService } from 'src/app/services/user.service';
     CommonModule,
     RouterModule,
     ReactiveFormsModule,
-    LucideAngularModule,
+    LucidePlus,
+    LucideHistory,
+    LucideX,
+    LucideScale,
+    LucideCheckCheck,
     PopupComponent,
     Navbar,
     TranslocoModule
   ],
 })
 export class DebtsPage implements OnInit, OnDestroy {
-  readonly plusIcon = PlusIcon;
-  readonly receiptIcon = HistoryIcon;
-  readonly closeIcon = XIcon;
-  readonly scaleIcon = ScaleIcon;
-  readonly alldoneIcon = CheckCheckIcon;
 
   subscriptions: Subscription[] = [];
 

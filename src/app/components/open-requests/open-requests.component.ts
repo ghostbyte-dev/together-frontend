@@ -2,8 +2,6 @@ import {
   Component,
   computed,
   effect,
-  OnDestroy,
-  OnInit,
   signal,
 } from '@angular/core';
 import { RequestAdapter } from 'src/app/models/request.adapter';
@@ -12,18 +10,16 @@ import { CommunityService } from 'src/app/services/community.service';
 import { UserService } from 'src/app/services/user.service';
 import { Subscription } from 'rxjs';
 
-import { CheckIcon, LucideAngularModule, XIcon } from 'lucide-angular';
 import { ToastrService } from 'ngx-toastr';
+import { LucideCheck, LucideX } from '@lucide/angular';
 
 @Component({
   selector: 'app-open-requests',
   templateUrl: './open-requests.component.html',
-  imports: [LucideAngularModule],
+  imports: [LucideX, LucideCheck],
   standalone: true,
 })
 export class OpenRequestsComponent {
-  readonly closeIcon = XIcon;
-  readonly checkmarkIcon = CheckIcon;
 
   subscriptions: Subscription[] = [];
 

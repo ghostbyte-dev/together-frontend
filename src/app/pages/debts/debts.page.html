@@ -1,11 +1,11 @@
 <ng-container *transloco="let t; prefix: 'debts'">
   <app-navbar [title]="t('title')">
     <a left routerLink="/debts/history" class="btn-primary aspect-square px-0">
-      <lucide-icon [img]="receiptIcon"></lucide-icon>
+      <svg lucideHistory></svg>
     </a>
 
     <button right type="button" class="btn-primary aspect-square px-0" (click)="openEditor(true)">
-      <lucide-icon [img]="plusIcon"></lucide-icon>
+      <svg lucidePlus></svg>
     </button>
   </app-navbar>
 </ng-container>
@@ -15,11 +15,11 @@
 
   @if (!allBalances.length) {
   <div class="flex flex-col items-center text-center space-y-3 py-14 card">
-    <lucide-icon [img]="alldoneIcon" size="42"></lucide-icon>
+    <svg lucideCheckCheck size="42"></svg>
     <h2 class="text-xl font-semibold mt-0">{{t('allCleared')}}</h2>
     <button type="button" class="btn-primary flex items-center justify-center space-x-2" (click)="openEditor(true)"
       aria-label="Neuen Eintrag hinzufügen">
-      <lucide-icon [img]="plusIcon"></lucide-icon>
+      <svg lucidePlus></svg>
       <span>{{t('add')}}</span>
     </button>
   </div>
@@ -37,7 +37,7 @@
         </div>
 
         <button type="button" class="btn-primary" (click)="openClearOffEditor(balance)">
-          <lucide-icon [img]="scaleIcon"></lucide-icon>
+          <svg lucideScale></svg>
         </button>
       </div>
 

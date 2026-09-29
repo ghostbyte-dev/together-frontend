@@ -5,12 +5,12 @@
 
       @if (activeCommunity()) {
       <a left type="button" class="btn-neutral aspect-square px-0" routerLink="/profile">
-        <lucide-icon [img]="backIcon"></lucide-icon>
+        <svg lucideArrowLeft></svg>
       </a>
       }
 
       <button right type="button" class="btn-danger aspect-square px-0" (click)="openLogoutPopup()">
-        <lucide-icon [img]="logoutIcon"></lucide-icon>
+        <svg lucideLogOut></svg>
       </button>
     </app-navbar>
   </ng-container>
@@ -39,7 +39,7 @@
 
         @if (ownCommunities().length === 0) {
         <div class="w-full flex flex-col items-center space-y-3 my-10">
-          <lucide-icon [img]="noCommunityIcon" [size]="36"></lucide-icon>
+          <svg lucideHousePlus [size]="36"></svg>
           <p>{{t('noCommunityJoined')}}</p>
         </div>
         } @else {
@@ -58,7 +58,7 @@
           </div>
 
           <div class="px-6 py-3">
-            <lucide-icon (click)="openCommuitySettings(community)" class="clickable" [img]="settingsIcon"></lucide-icon>
+            <svg (click)="openCommuitySettings(community)" class="clickable" lucideSettings></svg>
           </div>
 
         </div>
@@ -75,7 +75,7 @@
           </div>
 
           <div class="px-6 py-3">
-            <lucide-icon (click)="openCommuitySettings(community)" class="clickable" [img]="settingsIcon"></lucide-icon>
+            <svg (click)="openCommuitySettings(community)" class="clickable" lucideSettings></svg>
           </div>
 
         </div>
@@ -111,7 +111,7 @@
 
           <div
             class="absolute inset-0 rounded-full bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
-            <lucide-icon [img]="penIcon"></lucide-icon>
+            <svg lucidePen></svg>
           </div>
         </div>
       </div>

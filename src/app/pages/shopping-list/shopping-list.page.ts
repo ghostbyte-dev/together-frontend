@@ -7,13 +7,6 @@ import {
   Validators,
 } from '@angular/forms';
 import { TranslocoModule } from '@jsverse/transloco';
-import {
-  CheckCheckIcon,
-  CheckIcon,
-  LucideAngularModule,
-  PlusIcon,
-  XIcon,
-} from 'lucide-angular';
 import { ToastrService } from 'ngx-toastr';
 import { Navbar } from 'src/app/components/navbar/navbar';
 import { PopupComponent } from 'src/app/components/popup/popup.component';
@@ -21,24 +14,25 @@ import { PrimaryButton } from 'src/app/components/primary-button/primary-button'
 import { ShoppingItem } from 'src/app/models/shopping-item.model';
 import { AlertService } from 'src/app/services/alert.service';
 import { ShoppingService } from 'src/app/services/shopping.service';
+import { LucideCheck, LucideCheckCheck, LucidePlus, LucideX } from '@lucide/angular';
 
 @Component({
   selector: 'app-shopping-list',
   templateUrl: './shopping-list.page.html',
   imports: [
     ReactiveFormsModule,
-    LucideAngularModule,
     PopupComponent,
     Navbar,
     PrimaryButton,
-    TranslocoModule
+    TranslocoModule,
+    LucidePlus,
+    LucideX,
+    LucideCheck,
+    LucideCheckCheck
 ],
 })
 export class ShoppingListPage {
-  readonly plusIcon = PlusIcon;
-  readonly closeIcon = XIcon;
-  readonly alldoneIcon = CheckCheckIcon;
-  readonly checkIcon = CheckIcon;
+
 
   @ViewChild('editorNameInput') editorNameInput?: ElementRef<HTMLInputElement>;
 

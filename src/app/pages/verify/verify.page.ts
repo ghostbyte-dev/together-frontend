@@ -2,17 +2,15 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { TranslocoModule } from '@jsverse/transloco';
-import { Loader2Icon, LucideAngularModule } from 'lucide-angular';
+import { LucideLoader } from '@lucide/angular';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-verify',
   templateUrl: './verify.page.html',
-  imports: [RouterModule, LucideAngularModule, TranslocoModule],
+  imports: [RouterModule, TranslocoModule, LucideLoader],
 })
 export class VerifyPage implements OnInit {
-  readonly loaderIcon = Loader2Icon;
-
   code: string | null = '';
 
   isLoading = false;

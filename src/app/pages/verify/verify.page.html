@@ -4,7 +4,7 @@
 
   <div class="w-full flex flex-col items-center justify-center">
     @if (isLoading) {
-    <lucide-icon [img]="loaderIcon" class="animate-spin" size="16"></lucide-icon>
+    <svg lucideLoader class="animate-spin" size="16"></svg>
     } @else {
     @if (error.length === 0) {
     <p>{{t('successMessage')}}</p>

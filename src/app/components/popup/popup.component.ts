@@ -9,12 +9,12 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { LucideAngularModule, XIcon } from 'lucide-angular';
+import { LucideX } from '@lucide/angular';
 
 @Component({
   selector: 'app-popup',
   templateUrl: './popup.component.html',
-  imports: [LucideAngularModule],
+  imports: [LucideX],
   animations: [
     trigger('fadeScale', [
       transition(':enter', [
@@ -38,7 +38,6 @@ import { LucideAngularModule, XIcon } from 'lucide-angular';
   ],
 })
 export class PopupComponent implements OnChanges, OnDestroy {
-  readonly closeIcon = XIcon;
 
   @Input() show = false;
   @Input() title = '';

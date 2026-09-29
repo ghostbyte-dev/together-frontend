@@ -14,7 +14,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { TranslocoModule } from '@jsverse/transloco';
-import { LucideAngularModule, XIcon } from 'lucide-angular';
+import { LucideX } from '@lucide/angular';
 import { Subscription } from 'rxjs';
 import { Routine } from 'src/app/models/routine.model';
 import { User } from 'src/app/models/user.model';
@@ -24,11 +24,10 @@ import { CommunityService } from 'src/app/services/community.service';
 @Component({
   selector: 'app-routine-editor',
   templateUrl: './routine-editor.component.html',
-  imports: [ReactiveFormsModule, LucideAngularModule, TranslocoModule],
+  imports: [ReactiveFormsModule, LucideX, TranslocoModule],
   standalone: true,
 })
 export class RoutineEditorComponent implements OnInit, OnDestroy {
-  readonly closeIcon = XIcon;
 
   @Input() routine: Routine;
   @Output() closeEditor: EventEmitter<any> = new EventEmitter();

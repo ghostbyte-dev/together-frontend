@@ -1,15 +1,15 @@
 import { Component, Input } from '@angular/core';
-import { LucideAngularModule, LucideIconData } from 'lucide-angular';
+import { LucideDynamicIcon, LucideIconInput } from '@lucide/angular';
 
 @Component({
   selector: 'app-feature-card',
-  imports: [LucideAngularModule],
+  imports: [LucideDynamicIcon],
   templateUrl: './feature-card.html',
 })
 export class FeatureCard {
-  @Input() title: string;
-  @Input() description: string;
-  @Input() borderColor: string;
-  @Input() backgroundColor: string;
-  @Input() icon: LucideIconData
+  @Input() title!: string;
+  @Input() description!: string;
+  @Input() borderColor!: string;
+  @Input() backgroundColor!: string;
+  @Input() icon!: LucideIconInput;
 }

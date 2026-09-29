@@ -7,13 +7,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { TranslocoModule } from '@jsverse/transloco';
-import {
-  CheckCheckIcon,
-  CheckIcon,
-  LucideAngularModule,
-  PlusIcon,
-  XIcon,
-} from 'lucide-angular';
+import { LucideCheck, LucideCheckCheck, LucidePlus, LucideX } from '@lucide/angular';
 import { ToastrService } from 'ngx-toastr';
 import { Navbar } from 'src/app/components/navbar/navbar';
 import { PopupComponent } from 'src/app/components/popup/popup.component';
@@ -28,19 +22,17 @@ import { TodosService } from 'src/app/services/todos.service';
   templateUrl: './todos.html',
   imports: [
     ReactiveFormsModule,
-    LucideAngularModule,
     PrimaryButton,
     PopupComponent,
     Navbar,
     TimeAgoPipe,
-    TranslocoModule
+    TranslocoModule,
+    LucidePlus,
+    LucideCheck,
+    LucideCheckCheck
 ],
 })
 export class Todos {
-  readonly plusIcon = PlusIcon;
-  readonly closeIcon = XIcon;
-  readonly alldoneIcon = CheckCheckIcon;
-  readonly checkIcon = CheckIcon;
 
   @ViewChild('editNameInput') editNameInput?: ElementRef<HTMLInputElement>;
 

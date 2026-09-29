@@ -1,20 +1,26 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AlertService } from 'src/app/services/alert.service';
 
 @Component({
   selector: 'app-alert',
+  standalone: true,
   imports: [],
   templateUrl: './alert.html',
 })
-export class Alert {
-  alert = null;
+export class AlertComponent {
+  // Fix: Explicitly type as 'any' (or an interface) to avoid strict mode type errors
+  alert: any = null;
 
-  constructor(private alertService: AlertService) {}
+  private alertService = inject(AlertService);
 
-  ngOnInit() {
-    this.alertService.alert.subscribe((alert) => {
-      this.alert = alert;
-    });
+  constructor() {
+    // Automatically manages subscription cleanup on component destroy
+    this.alertService.alert
+      .pipe(takeUntilDestroyed())
+      .subscribe((alert) => {
+        this.alert = alert;
+      });
   }
 
   onSubmit() {

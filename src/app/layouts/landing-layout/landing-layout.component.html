@@ -10,7 +10,7 @@
       @if (isLoggedIn()) {
         <a routerLink="/calendar" class="btn-primary space-x-2">
           <span class="font-bold">{{t('ctaApp')}}</span>
-          <lucide-icon [img]="arrowRightIcon" size="20"></lucide-icon>
+          <svg lucideArrowRight size="20"></svg>
         </a>
         } @else {
         <div class="flex space-x-3">

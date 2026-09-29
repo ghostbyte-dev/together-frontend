@@ -2,15 +2,15 @@
 
   <app-navbar [title]="t('title')">
     <a left routerLink="/calendar/routines" class="btn-primary aspect-square px-0">
-      <lucide-icon [img]="InfinityIcon"></lucide-icon>
+      <svg lucideInfinity></svg>
     </a>
 
     <div right class="flex items-center space-x-2">
       <button type="button" class="btn-neutral aspect-square px-0" (click)="changeSelectedDays('previous')" [attr.aria-label]="t('previous')">
-        <lucide-icon [img]="ChevronLeftIcon"></lucide-icon>
+        <svg lucideChevronLeft></svg>
       </button>
       <button type="button" class="btn-neutral aspect-square px-0" (click)="changeSelectedDays('next')" [attr.aria-label]="t('next')">
-        <lucide-icon [img]="ChevronRightIcon"></lucide-icon>
+        <svg lucideChevronRight></svg>
       </button>
     </div>
   </app-navbar>
@@ -47,7 +47,7 @@
 
           <!-- Add Task Button -->
           <div class="card mt-6 py-4 flex items-center justify-center clickable" (click)="dateForNewEntry = day.date" [attr.aria-label]="t('addTask')">
-            <lucide-icon [img]="plusIcon" size="16"></lucide-icon>
+            <svg lucidePlus size="16"></svg>
           </div>
         </div>
       </div>

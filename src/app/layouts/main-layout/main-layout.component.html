@@ -11,7 +11,7 @@
         class="pointer-events-auto backdrop-blur-lg bg-surface/50 border-t lg:border border-gray-700 lg:rounded-xl shadow-lg flex justify-evenly items-center py-2 w-full lg:max-w-xl lg:mx-auto">
 
         <a routerLink="/calendar" routerLinkActive="active-tab" class="flex flex-col items-center relative w-20 py-2">
-          <lucide-icon [img]="calendarIcon"></lucide-icon>
+          <svg lucideCalendar></svg>
           <span class="text-xs mt-1">{{ t('calendar') }}</span>
           @if (tasksForTodayExists) {
           <span class="absolute top-0 right-0 bg-primary text-black text-xs rounded-full px-1">!</span>
@@ -19,7 +19,7 @@
         </a>
 
         <a routerLink="/todos" routerLinkActive="active-tab" class="flex flex-col items-center relative w-20 py-2">
-          <lucide-icon [img]="todosIcon"></lucide-icon>
+          <svg lucideCheckCheck></svg>
           <span class="text-xs mt-1">{{ t('todos') }}</span>
           @if (numberOfOpenTodos !== 0) {
           <span class="absolute top-0 right-0 bg-primary text-black text-xs rounded-full px-1">
@@ -29,7 +29,7 @@
         </a>
 
         <a routerLink="/shopping-list" routerLinkActive="active-tab" class="flex flex-col items-center relative w-20 py-2">
-          <lucide-icon [img]="cartIcon"></lucide-icon>
+          <svg lucideShoppingCart></svg>
           <span class="text-xs mt-1">{{ t('shoppingList') }}</span>
           @if (numberOfOpenShoppingItems !== 0) {
           <span class="absolute top-0 right-0 bg-primary text-black text-xs rounded-full px-1">
@@ -39,12 +39,12 @@
         </a>
 
         <a routerLink="/debts" routerLinkActive="active-tab" class="flex flex-col items-center relative w-20 py-2">
-          <lucide-icon [img]="debtsIcon"></lucide-icon>
+          <svg lucideWallet></svg>
           <span class="text-xs mt-1">{{ t('debts') }}</span>
         </a>
 
         <a routerLink="/profile" routerLinkActive="active-tab" class="flex flex-col items-center relative w-20 py-2">
-          <lucide-icon [img]="profileIcon"></lucide-icon>
+          <svg lucideCircleUserRound></svg>
           <span class="text-xs mt-1">{{ t('profile') }}</span>
         </a>
       </nav>

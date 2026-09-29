@@ -2,7 +2,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { TranslocoModule } from '@jsverse/transloco';
-import { ArrowLeftIcon, LucideAngularModule, PlusIcon } from 'lucide-angular';
+import { LucideArrowLeft, LucidePlus } from '@lucide/angular';
 import { Subscription } from 'rxjs';
 import { Navbar } from 'src/app/components/navbar/navbar';
 import { PopupComponent } from 'src/app/components/popup/popup.component';
@@ -18,15 +18,14 @@ import { CalendarService } from 'src/app/services/calendar.service';
     RouterModule,
     RoutineEditorComponent,
     RoutineCardComponent,
-    LucideAngularModule,
     PopupComponent,
     Navbar,
-    TranslocoModule
+    TranslocoModule,
+    LucidePlus,
+    LucideArrowLeft
 ],
 })
 export class RoutinesPage implements OnInit, OnDestroy {
-  readonly plusIcon = PlusIcon;
-  readonly backIcon = ArrowLeftIcon
 
   subscriptions: Subscription[] = [];
 

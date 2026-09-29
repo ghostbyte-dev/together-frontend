@@ -1,11 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { AuthService } from './services/auth.service';
+import { RouterOutlet } from '@angular/router';
+import { AlertComponent } from './components/alert/alert';
 
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
-  standalone: false,
+  imports: [
+    RouterOutlet,
+    AlertComponent
+  ],
+  standalone: true,
 })
 export class AppComponent {
-  constructor(private authService: AuthService) {}
+  private authService = inject(AuthService);
 }

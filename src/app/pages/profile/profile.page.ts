@@ -5,13 +5,6 @@ import { CommunityService } from 'src/app/services/community.service';
 import { RouterModule } from '@angular/router';
 
 import { OpenRequestsComponent } from 'src/app/components/open-requests/open-requests.component';
-import {
-  ArrowLeftRightIcon,
-  LogOutIcon,
-  LucideAngularModule,
-  PaletteIcon,
-  UserPenIcon,
-} from 'lucide-angular';
 import { Navbar } from 'src/app/components/navbar/navbar';
 import { AlertService } from 'src/app/services/alert.service';
 import { PopupComponent } from 'src/app/components/popup/popup.component';
@@ -24,6 +17,7 @@ import {
 import { PrimaryButton } from 'src/app/components/primary-button/primary-button';
 import { ToastrService } from 'ngx-toastr';
 import { TranslocoModule, TranslocoService } from '@jsverse/transloco';
+import { LucideArrowLeftRight, LucideLogOut, LucidePalette, LucideUserPen } from '@lucide/angular';
 
 @Component({
   selector: 'app-profile',
@@ -31,19 +25,18 @@ import { TranslocoModule, TranslocoService } from '@jsverse/transloco';
   imports: [
     RouterModule,
     OpenRequestsComponent,
-    LucideAngularModule,
     ReactiveFormsModule,
     PrimaryButton,
     Navbar,
     PopupComponent,
-    TranslocoModule
+    TranslocoModule,
+    LucidePalette,
+    LucideUserPen,
+    LucideArrowLeftRight,
+    LucideLogOut
 ],
 })
 export class ProfilePage {
-  readonly paletteIcon = PaletteIcon;
-  readonly userPen = UserPenIcon;
-  readonly switchIcon = ArrowLeftRightIcon;
-  readonly logoutIcon = LogOutIcon;
 
   feedbackForm = new FormGroup({
     feedback: new FormControl<string | null>('', [

@@ -8,7 +8,7 @@
         <div class="flex flex-col items-start space-y-6">
           <div
             class="bg-[#143830] text-[#7de0a1] border border-[#7de0a1] rounded-full px-3 py-2 text-xs flex items-center justify-center space-x-1">
-            <lucide-icon [img]="sparklesIcon" size="16" color="#7de0a1"></lucide-icon>
+            <svg lucideSparkles size="16" color="#7de0a1"></svg>
             <span class="text-[#7de0a1]">{{ t('badge') }}</span>
           </div>
 
@@ -30,7 +30,7 @@
           @if (isLoggedIn) {
             <a routerLink="/calendar" class="btn-primary space-x-2">
               <span class="font-bold">{{ t('ctaApp') }}</span>
-              <lucide-icon [img]="arrowRightIcon" size="20"></lucide-icon>
+              <svg lucideArrowRight size="20"></svg>
             </a>
           } @else {
             <div class="flex space-x-3">
@@ -50,11 +50,11 @@
               <span class="font-medium text-green-500">{{ t('feature1') }}</span>
             </div>
             <div class="flex items-center space-x-2 text-blue-400">
-              <lucide-icon [img]="shieldIcon" color="#51A2FF" size="14"></lucide-icon>
+              <svg lucideShield size="14" color="#51A2FF"></svg>
               <span class="text-blue-400">{{ t('feature2') }}</span>
             </div>
             <div class="flex items-center space-x-2 text-purple-400">
-              <lucide-icon [img]="heartIcon" color="#C27AFF" size="14"></lucide-icon>
+              <svg lucideHeart size="14" color="#C27AFF"></svg>
               <span class="text-purple-400">{{ t('feature3') }}</span>
             </div>
           </div>
@@ -88,7 +88,7 @@
         <app-feature-card title="{{ t('card3Title') }}" [icon]="calendarIcon" borderColor="#c084fc" backgroundColor="#432b4d"
         description="{{ t('card3Description') }}"></app-feature-card>
 
-        <app-feature-card title="{{ t('card4Title') }}" [icon]="debtIcon" borderColor="#fb923c" backgroundColor="#442a2e"
+        <app-feature-card title="{{ t('card4Title') }}" [icon]="piggyBankIcon" borderColor="#fb923c" backgroundColor="#442a2e"
         description="{{ t('card4Description') }}"></app-feature-card>
 
         <app-feature-card title="{{ t('card5Title') }}" [icon]="multipleCommunitiesIcon" borderColor="#facc15" backgroundColor="#463c29"
@@ -164,7 +164,7 @@
 
           <a routerLink="/login" class="btn-primary space-x-2">
             <span class="font-bold">{{ t('button') }}</span>
-            <lucide-icon [img]="arrowRightIcon" size="24"></lucide-icon>
+            <svg lucideArrowRight size="24"></svg>
           </a>
 
           <div class="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-8 text-sm">
@@ -173,11 +173,11 @@
               <span class="font-medium text-green-500">{{ t('feature1') }}</span>
             </div>
             <div class="flex items-center space-x-2 text-blue-400">
-              <lucide-icon [img]="shieldIcon" color="#51A2FF" size="14"></lucide-icon>
+              <svg lucideShield size="14" color="#51A2FF"></svg>
               <span class="text-blue-400">{{ t('feature2') }}</span>
             </div>
             <div class="flex items-center space-x-2 text-purple-400">
-              <lucide-icon [img]="heartIcon" color="#C27AFF" size="14"></lucide-icon>
+              <svg lucideHeart size="14" color="#C27AFF"></svg>
               <span class="text-purple-400">{{ t('feature3') }}</span>
             </div>
           </div>

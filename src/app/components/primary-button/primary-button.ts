@@ -1,10 +1,10 @@
 
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Loader2Icon, LucideAngularModule } from 'lucide-angular';
+import { LucideLoader } from '@lucide/angular';
 
 @Component({
   selector: 'app-primary-button',
-  imports: [LucideAngularModule],
+  imports: [LucideLoader],
   templateUrl: './primary-button.html',
 })
 export class PrimaryButton {
@@ -14,8 +14,6 @@ export class PrimaryButton {
   @Input() label!: string;
   @Input() customClasses = 'btn-primary w-full';
   @Output() clicked = new EventEmitter<void>();
-
-  readonly loaderIcon = Loader2Icon;
 
   onClick() {
     if (!this.disabled && !this.isLoading) {

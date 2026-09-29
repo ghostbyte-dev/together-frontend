@@ -4,19 +4,13 @@ import { RouterModule } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { TaskCardComponent } from 'src/app/components/task-card/task-card.component';
 import { Day } from 'src/app/models/day.model';
-import {
-  LucideAngularModule,
-  InfinityIcon,
-  ChevronRightIcon,
-  ChevronLeftIcon,
-  PlusIcon,
-} from 'lucide-angular';
 import { PopupComponent } from 'src/app/components/popup/popup.component';
 import { Navbar } from 'src/app/components/navbar/navbar';
 import { CalendarEntry } from 'src/app/models/calendarEntry.model';
 import { CalendarEntryEditor } from 'src/app/components/calendar-entry-editor/calendar-entry-editor';
 import { CalendarService } from 'src/app/services/calendar.service';
 import { TranslocoModule } from '@jsverse/transloco';
+import { LucideChevronLeft, LucideChevronRight, LucideInfinity, LucidePlus } from '@lucide/angular';
 
 @Component({
   selector: 'app-tasks',
@@ -25,18 +19,17 @@ import { TranslocoModule } from '@jsverse/transloco';
     CommonModule,
     RouterModule,
     TaskCardComponent,
-    LucideAngularModule,
     PopupComponent,
     CalendarEntryEditor,
     Navbar,
-    TranslocoModule
+    TranslocoModule,
+    LucideInfinity,
+    LucideChevronRight,
+    LucideChevronLeft,
+    LucidePlus
   ],
 })
 export class CalendarPage implements OnInit, OnDestroy {
-  readonly InfinityIcon = InfinityIcon;
-  readonly ChevronRightIcon = ChevronRightIcon;
-  readonly ChevronLeftIcon = ChevronLeftIcon;
-  readonly plusIcon = PlusIcon;
 
   subscriptions: Subscription[] = [];
 
