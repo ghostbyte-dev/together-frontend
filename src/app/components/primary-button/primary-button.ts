@@ -1,10 +1,10 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Loader2Icon, LucideAngularModule } from 'lucide-angular';
 
 @Component({
   selector: 'app-primary-button',
-  imports: [CommonModule, LucideAngularModule],
+  imports: [LucideAngularModule],
   templateUrl: './primary-button.html',
 })
 export class PrimaryButton {

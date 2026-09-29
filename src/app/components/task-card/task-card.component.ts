@@ -1,13 +1,11 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { CalendarEntry } from 'src/app/models/calendarEntry.model';
 
 @Component({
     selector: 'app-task-card',
     templateUrl: './task-card.component.html',
-    imports: [
-      CommonModule,
-    ],
+    imports: [],
     standalone: true
 })
 export class TaskCardComponent implements OnInit {

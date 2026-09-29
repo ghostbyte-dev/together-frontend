@@ -1,103 +1,104 @@
 <ng-container *transloco="let t; prefix: 'routines.editor'">
 
-<form [formGroup]="routineForm" (ngSubmit)="saveRoutine()">
-  <div class="space-y-4">
+  <form [formGroup]="routineForm" (ngSubmit)="saveRoutine()">
+    <div class="space-y-4">
 
-    <!-- Name -->
-    <div>
-      <label>{{t('nameLabel')}}:</label>
-      <input type="text" formControlName="name" [placeholder]="t('namePlaceholder')"
-        class="w-full rounded-md bg-[var(--ion-color-dark)] text-white p-2 focus:outline-none" />
-    </div>
-
-    <!-- Notes -->
-    <div>
-      <label>{{t('notesLabel')}}:</label>
-      <input type="text" formControlName="notes" [placeholder]="t('notesPlaceholder')"
-        class="w-full rounded-md bg-[var(--ion-color-dark)] text-white p-2 focus:outline-none" />
-    </div>
-
-    <!-- Start Date -->
-    <div>
-      <label>{{t('startDateLabel')}}:</label>
-      <input type="date" formControlName="startdate"
-        class="w-full rounded-md bg-[var(--ion-color-dark)] text-white p-2 focus:outline-none" />
-    </div>
-
-    <!-- Interval -->
-    <div>
-      <label>{{t('intervalLabel')}}:</label>
-      <input type="number" formControlName="interval" min="1" step="1" [placeholder]="t('intervalPlaceholder')"
-        class="w-full rounded-md bg-[var(--ion-color-dark)] text-white p-2 focus:outline-none" />
-    </div>
-
-    <!-- Responsible Users -->
-    <div *ngIf="!updatingResponsibleUsers">
-      <p class="mb-1">{{t('assigned')}}:</p>
-      <div class="flex flex-wrap gap-2">
-        @for (user of assignedUsers; track user) {
-        <div class="flex items-center bg-[var(--ion-color-dark)] h-6 text-[0.7rem] px-2 rounded-md">
-          <img [src]="user.avatar" alt="" class="w-4 h-4 rounded-full mr-1" />
-          <span>{{user.name}}</span>
-        </div>
-        }
-      </div>
-
-      <button type="button" class="btn-primary mt-3" (click)="setUpdatingResponsibleUsers(true)">
-        {{t('changeAssigned')}}
-      </button>
-    </div>
-
-    <!-- User Management -->
-    <div *ngIf="updatingResponsibleUsers" class="bg-surface rounded-lg p-3 space-y-3 border border-gray-700">
-
-      <!-- Close Button -->
-      <div class="flex justify-center">
-        <button type="button" (click)="setUpdatingResponsibleUsers(false)" class="btn-danger">
-          <lucide-icon [img]="closeIcon"></lucide-icon>
-        </button>
-      </div>
-
-      <!-- Current Users -->
+      <!-- Name -->
       <div>
-        <p class="mb-1">{{t('assigned')}}:</p>
-        <div class="flex flex-wrap gap-2">
-          @for (user of assignedUsers; track user) {
-          <div (click)="removeUser(user)"
-            class="flex items-center bg-[var(--ion-color-dark)] h-6 text-[0.7rem] px-2 rounded-md cursor-pointer hover:opacity-80">
-            <img [src]="user.avatar" alt="" class="w-4 h-4 rounded-full mr-1" />
-            <span>{{user.name}}</span>
-X          </div>
-          }
-        </div>
+        <label>{{t('nameLabel')}}:</label>
+        <input type="text" formControlName="name" [placeholder]="t('namePlaceholder')"
+          class="w-full rounded-md bg-[var(--ion-color-dark)] text-white p-2 focus:outline-none" />
       </div>
 
-      <!-- Available Users -->
+      <!-- Notes -->
       <div>
-        <p class="mb-1">{{t('notAssigned')}}:</p>
-        <div class="flex flex-wrap gap-2">
-          @for (user of assignableUsers; track user) {
-          <div (click)="addUser(user)"
-            class="flex items-center bg-[var(--ion-color-dark)] h-6 text-[0.7rem] px-2 rounded-md cursor-pointer hover:opacity-80">
-            <img [src]="user.avatar" alt="" class="w-4 h-4 rounded-full mr-1" />
-            <span>{{user.name}}</span>
-+          </div>
-          }
-        </div>
+        <label>{{t('notesLabel')}}:</label>
+        <input type="text" formControlName="notes" [placeholder]="t('notesPlaceholder')"
+          class="w-full rounded-md bg-[var(--ion-color-dark)] text-white p-2 focus:outline-none" />
       </div>
-    </div>
 
-    <!-- Active Checkbox -->
-    <div *ngIf="routine" class="flex items-center pt-4">
-      <label class="mr-3">{{t('active')}}</label>
+      <!-- Start Date -->
+      <div>
+        <label>{{t('startDateLabel')}}:</label>
+        <input type="date" formControlName="startdate"
+          class="w-full rounded-md bg-[var(--ion-color-dark)] text-white p-2 focus:outline-none" />
+      </div>
 
-      <input type="checkbox" formControlName="done"
-        class="w-8 h-8 bg-background border-white text-primary-500 rounded focus:ring-0 focus:outline-none checked:bg-primary-500 checked:border-primary-500" />
-    </div>
+      <!-- Interval -->
+      <div>
+        <label>{{t('intervalLabel')}}:</label>
+        <input type="number" formControlName="interval" min="1" step="1" [placeholder]="t('intervalPlaceholder')"
+          class="w-full rounded-md bg-[var(--ion-color-dark)] text-white p-2 focus:outline-none" />
+      </div>
 
-    <button [disabled]="routineForm.invalid" (click)="saveRoutine()" type="submit"
+      <!-- Responsible Users -->
+      @if (!updatingResponsibleUsers) {
+        <div>
+          <p class="mb-1">{{t('assigned')}}:</p>
+          <div class="flex flex-wrap gap-2">
+            @for (user of assignedUsers; track user) {
+              <div class="flex items-center bg-[var(--ion-color-dark)] h-6 text-[0.7rem] px-2 rounded-md">
+                <img [src]="user.avatar" alt="" class="w-4 h-4 rounded-full mr-1" />
+                <span>{{user.name}}</span>
+              </div>
+            }
+          </div>
+          <button type="button" class="btn-primary mt-3" (click)="setUpdatingResponsibleUsers(true)">
+            {{t('changeAssigned')}}
+          </button>
+        </div>
+      }
+
+      <!-- User Management -->
+      @if (updatingResponsibleUsers) {
+        <div class="bg-surface rounded-lg p-3 space-y-3 border border-gray-700">
+          <!-- Close Button -->
+          <div class="flex justify-center">
+            <button type="button" (click)="setUpdatingResponsibleUsers(false)" class="btn-danger">
+              <lucide-icon [img]="closeIcon"></lucide-icon>
+            </button>
+          </div>
+          <!-- Current Users -->
+          <div>
+            <p class="mb-1">{{t('assigned')}}:</p>
+            <div class="flex flex-wrap gap-2">
+              @for (user of assignedUsers; track user) {
+                <div (click)="removeUser(user)"
+                  class="flex items-center bg-[var(--ion-color-dark)] h-6 text-[0.7rem] px-2 rounded-md cursor-pointer hover:opacity-80">
+                  <img [src]="user.avatar" alt="" class="w-4 h-4 rounded-full mr-1" />
+                  <span>{{user.name}}</span>
+                X          </div>
+              }
+            </div>
+          </div>
+          <!-- Available Users -->
+          <div>
+            <p class="mb-1">{{t('notAssigned')}}:</p>
+            <div class="flex flex-wrap gap-2">
+              @for (user of assignableUsers; track user) {
+                <div (click)="addUser(user)"
+                  class="flex items-center bg-[var(--ion-color-dark)] h-6 text-[0.7rem] px-2 rounded-md cursor-pointer hover:opacity-80">
+                  <img [src]="user.avatar" alt="" class="w-4 h-4 rounded-full mr-1" />
+                  <span>{{user.name}}</span>
+                +          </div>
+              }
+            </div>
+          </div>
+        </div>
+      }
+
+      <!-- Active Checkbox -->
+      @if (routine) {
+        <div class="flex items-center pt-4">
+          <label class="mr-3">{{t('active')}}</label>
+          <input type="checkbox" formControlName="done"
+            class="w-8 h-8 bg-background border-white text-primary-500 rounded focus:ring-0 focus:outline-none checked:bg-primary-500 checked:border-primary-500" />
+        </div>
+      }
+
+      <button [disabled]="routineForm.invalid" (click)="saveRoutine()" type="submit"
         class="btn-primary w-full">
         {{t('save')}}
       </button>
-  </div>
-</form>
+    </div>
+  </form>

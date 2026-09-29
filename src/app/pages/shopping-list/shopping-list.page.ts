@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, ElementRef, OnInit, ViewChild, effect } from '@angular/core';
 import {
   FormControl,
@@ -26,14 +26,13 @@ import { ShoppingService } from 'src/app/services/shopping.service';
   selector: 'app-shopping-list',
   templateUrl: './shopping-list.page.html',
   imports: [
-    CommonModule,
     ReactiveFormsModule,
     LucideAngularModule,
     PopupComponent,
     Navbar,
     PrimaryButton,
     TranslocoModule
-  ],
+],
 })
 export class ShoppingListPage {
   readonly plusIcon = PlusIcon;

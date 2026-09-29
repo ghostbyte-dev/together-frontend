@@ -1,5 +1,5 @@
 import { animate, style, transition, trigger } from '@angular/animations';
-import { CommonModule } from '@angular/common';
+
 import {
   Component,
   EventEmitter,
@@ -14,7 +14,7 @@ import { LucideAngularModule, XIcon } from 'lucide-angular';
 @Component({
   selector: 'app-popup',
   templateUrl: './popup.component.html',
-  imports: [CommonModule, LucideAngularModule],
+  imports: [LucideAngularModule],
   animations: [
     trigger('fadeScale', [
       transition(':enter', [

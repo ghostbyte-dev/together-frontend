@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, ElementRef, signal, ViewChild } from '@angular/core';
 import {
   FormControl,
@@ -27,15 +27,14 @@ import { TodosService } from 'src/app/services/todos.service';
   selector: 'app-todos',
   templateUrl: './todos.html',
   imports: [
-    CommonModule,
     ReactiveFormsModule,
     LucideAngularModule,
     PrimaryButton,
     PopupComponent,
     Navbar,
     TimeAgoPipe,
-    TranslocoModule,
-  ],
+    TranslocoModule
+],
 })
 export class Todos {
   readonly plusIcon = PlusIcon;

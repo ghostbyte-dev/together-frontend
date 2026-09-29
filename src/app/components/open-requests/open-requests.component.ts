@@ -11,14 +11,14 @@ import { Request } from 'src/app/models/request.model';
 import { CommunityService } from 'src/app/services/community.service';
 import { UserService } from 'src/app/services/user.service';
 import { Subscription } from 'rxjs';
-import { CommonModule } from '@angular/common';
+
 import { CheckIcon, LucideAngularModule, XIcon } from 'lucide-angular';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-open-requests',
   templateUrl: './open-requests.component.html',
-  imports: [CommonModule, LucideAngularModule],
+  imports: [LucideAngularModule],
   standalone: true,
 })
 export class OpenRequestsComponent {

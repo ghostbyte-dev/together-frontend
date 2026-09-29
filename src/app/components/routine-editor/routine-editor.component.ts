@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import {
   Component,
   EventEmitter,
@@ -24,7 +24,7 @@ import { CommunityService } from 'src/app/services/community.service';
 @Component({
   selector: 'app-routine-editor',
   templateUrl: './routine-editor.component.html',
-  imports: [CommonModule, ReactiveFormsModule, LucideAngularModule, TranslocoModule],
+  imports: [ReactiveFormsModule, LucideAngularModule, TranslocoModule],
   standalone: true,
 })
 export class RoutineEditorComponent implements OnInit, OnDestroy {

@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { TranslocoModule } from '@jsverse/transloco';
@@ -8,7 +8,7 @@ import { AuthService } from 'src/app/services/auth.service';
 @Component({
   selector: 'app-verify',
   templateUrl: './verify.page.html',
-  imports: [CommonModule, RouterModule, LucideAngularModule, TranslocoModule],
+  imports: [RouterModule, LucideAngularModule, TranslocoModule],
 })
 export class VerifyPage implements OnInit {
   readonly loaderIcon = Loader2Icon;

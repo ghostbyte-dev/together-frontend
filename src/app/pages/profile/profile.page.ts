@@ -3,7 +3,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
 import { CommunityService } from 'src/app/services/community.service';
 import { RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
+
 import { OpenRequestsComponent } from 'src/app/components/open-requests/open-requests.component';
 import {
   ArrowLeftRightIcon,
@@ -29,7 +29,6 @@ import { TranslocoModule, TranslocoService } from '@jsverse/transloco';
   selector: 'app-profile',
   templateUrl: './profile.page.html',
   imports: [
-    CommonModule,
     RouterModule,
     OpenRequestsComponent,
     LucideAngularModule,
@@ -38,7 +37,7 @@ import { TranslocoModule, TranslocoService } from '@jsverse/transloco';
     Navbar,
     PopupComponent,
     TranslocoModule
-  ],
+],
 })
 export class ProfilePage {
   readonly paletteIcon = PaletteIcon;

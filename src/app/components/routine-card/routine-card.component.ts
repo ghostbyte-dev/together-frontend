@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, Input, OnInit } from '@angular/core';
 import { TranslocoModule } from '@jsverse/transloco';
 import { Routine } from 'src/app/models/routine.model';
@@ -7,8 +7,8 @@ import { Routine } from 'src/app/models/routine.model';
     selector: 'app-routine-card',
     templateUrl: './routine-card.component.html',
     imports: [
-      CommonModule, TranslocoModule
-    ]
+    TranslocoModule
+]
 })
 export class RoutineCardComponent implements OnInit {
 

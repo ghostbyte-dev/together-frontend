@@ -27,13 +27,12 @@
           </p>
 
 
-          <ng-container *ngIf="isLoggedIn; else loggedOut">
+          @if (isLoggedIn) {
             <a routerLink="/calendar" class="btn-primary space-x-2">
               <span class="font-bold">{{ t('ctaApp') }}</span>
               <lucide-icon [img]="arrowRightIcon" size="20"></lucide-icon>
             </a>
-          </ng-container>
-          <ng-template #loggedOut>
+          } @else {
             <div class="flex space-x-3">
               <a routerLink="/login" class="btn-neutral">
                 <span class="font-bold">{{ t('ctaLogin') }}</span>
@@ -42,7 +41,7 @@
                 <span class="font-bold">{{ t('ctaRegister') }}</span>
               </a>
             </div>
-          </ng-template>
+          }
 
           <div
             class="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-8 text-sm w-full md:w-auto">
@@ -81,19 +80,19 @@
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-5">
         <app-feature-card title="{{ t('card1Title') }}" [icon]="checkIcon" borderColor="#4ade80" backgroundColor="#173d3a"
-          description="{{ t('card1Description') }}"></app-feature-card>
+        description="{{ t('card1Description') }}"></app-feature-card>
 
         <app-feature-card title="{{ t('card2Title') }}" [icon]="shoppingCartIcon" borderColor="#60A5FA" backgroundColor="#1D3853"
-          description="{{ t('card2Description') }}"></app-feature-card>
+        description="{{ t('card2Description') }}"></app-feature-card>
 
         <app-feature-card title="{{ t('card3Title') }}" [icon]="calendarIcon" borderColor="#c084fc" backgroundColor="#432b4d"
-          description="{{ t('card3Description') }}"></app-feature-card>
+        description="{{ t('card3Description') }}"></app-feature-card>
 
         <app-feature-card title="{{ t('card4Title') }}" [icon]="debtIcon" borderColor="#fb923c" backgroundColor="#442a2e"
-          description="{{ t('card4Description') }}"></app-feature-card>
+        description="{{ t('card4Description') }}"></app-feature-card>
 
         <app-feature-card title="{{ t('card5Title') }}" [icon]="multipleCommunitiesIcon" borderColor="#facc15" backgroundColor="#463c29"
-          description="{{ t('card5Description') }}"></app-feature-card>
+        description="{{ t('card5Description') }}"></app-feature-card>
       </div>
     </section>
   </ng-container>
@@ -108,13 +107,13 @@
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-10">
         <app-why-card title="{{ t('card1Title') }}" [icon]="globeIcon" borderColor="#4ade80" backgroundColor="#173d3a"
-          description="{{ t('card1Description') }}"></app-why-card>
+        description="{{ t('card1Description') }}"></app-why-card>
 
         <app-why-card title="{{ t('card2Title') }}" [icon]="giftIcon" borderColor="#60A5FA" backgroundColor="#1D3853"
-          description="{{ t('card2Description') }}"></app-why-card>
+        description="{{ t('card2Description') }}"></app-why-card>
 
         <app-why-card title="{{ t('card3Title') }}" [icon]="zapIcon" borderColor="#c084fc" backgroundColor="#432b4d"
-          description="{{ t('card3Description') }}"></app-why-card>
+        description="{{ t('card3Description') }}"></app-why-card>
       </div>
     </section>
   </ng-container>

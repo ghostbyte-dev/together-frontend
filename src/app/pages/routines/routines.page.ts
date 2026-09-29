@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { TranslocoModule } from '@jsverse/transloco';
@@ -15,7 +15,6 @@ import { CalendarService } from 'src/app/services/calendar.service';
   selector: 'app-routines',
   templateUrl: './routines.page.html',
   imports: [
-    CommonModule,
     RouterModule,
     RoutineEditorComponent,
     RoutineCardComponent,
@@ -23,7 +22,7 @@ import { CalendarService } from 'src/app/services/calendar.service';
     PopupComponent,
     Navbar,
     TranslocoModule
-  ],
+],
 })
 export class RoutinesPage implements OnInit, OnDestroy {
   readonly plusIcon = PlusIcon;

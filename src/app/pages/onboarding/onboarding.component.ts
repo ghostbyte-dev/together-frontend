@@ -20,7 +20,7 @@ import { Router, RouterModule } from '@angular/router';
 import { Navbar } from 'src/app/components/navbar/navbar';
 import { AuthService } from 'src/app/services/auth.service';
 import { AlertService } from 'src/app/services/alert.service';
-import { CommonModule } from '@angular/common';
+
 import {
   FormControl,
   FormGroup,
@@ -37,7 +37,6 @@ import { LanguageSwitcher } from "src/app/components/language-switcher/language-
   selector: 'app-onboarding',
   templateUrl: './onboarding.component.html',
   imports: [
-    CommonModule,
     PopupComponent,
     JoinCommunityComponent,
     CreateCommunityComponent,

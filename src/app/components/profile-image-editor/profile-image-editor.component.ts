@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import {
   Component,
   EventEmitter,
@@ -20,7 +20,7 @@ import { TranslocoModule } from '@jsverse/transloco';
 @Component({
   selector: 'app-profile-image-editor',
   templateUrl: './profile-image-editor.component.html',
-  imports: [CommonModule, ImageCropperComponent, PrimaryButton, TranslocoModule],
+  imports: [ImageCropperComponent, PrimaryButton, TranslocoModule],
 })
 export class ProfileImageEditorComponent {
   @Output() closeEditor: EventEmitter<any> = new EventEmitter();

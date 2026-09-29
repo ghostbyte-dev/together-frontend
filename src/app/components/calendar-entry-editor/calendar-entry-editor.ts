@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
   FormControl,
@@ -16,7 +16,7 @@ import { CalendarService } from 'src/app/services/calendar.service';
 
 @Component({
   selector: 'app-calendar-entry-editor',
-  imports: [CommonModule, ReactiveFormsModule, TranslocoModule],
+  imports: [ReactiveFormsModule, TranslocoModule],
   templateUrl: './calendar-entry-editor.html',
 })
 export class CalendarEntryEditor implements OnInit {

@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component } from '@angular/core';
 import {
   FormControl,
@@ -16,7 +16,7 @@ import { AuthService } from 'src/app/services/auth.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
-  imports: [CommonModule, ReactiveFormsModule, RouterModule, PrimaryButton, TranslocoModule],
+  imports: [ReactiveFormsModule, RouterModule, PrimaryButton, TranslocoModule],
 })
 export class LoginPage {
 
