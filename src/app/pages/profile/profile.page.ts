@@ -15,7 +15,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { PrimaryButton } from 'src/app/components/primary-button/primary-button';
-import { LucideArrowLeftRight, LucideLogOut, LucideUserPen } from '@lucide/angular';
+import { LucideArrowLeftRight, LucideLogOut } from '@lucide/angular';
 import { ToastService } from 'src/app/services/toast.service';
 import { TranslocoDirective, TranslocoService } from '@jsverse/transloco';
 
@@ -29,7 +29,7 @@ import { TranslocoDirective, TranslocoService } from '@jsverse/transloco';
     PrimaryButton,
     Navbar,
     PopupComponent,
-    LucideUserPen,
+    TranslocoDirective,
     LucideArrowLeftRight,
     LucideLogOut
 ],

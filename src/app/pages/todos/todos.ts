@@ -7,7 +7,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { TranslocoModule } from '@jsverse/transloco';
-import { LucideCheck, LucideCheckCheck, LucidePlus, LucideX } from '@lucide/angular';
+import { LucideCheck, LucideCheckCheck, LucidePlus } from '@lucide/angular';
 import { Navbar } from 'src/app/components/navbar/navbar';
 import { PopupComponent } from 'src/app/components/popup/popup.component';
 import { PrimaryButton } from 'src/app/components/primary-button/primary-button';

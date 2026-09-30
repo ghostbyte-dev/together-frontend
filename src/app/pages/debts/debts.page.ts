@@ -1,15 +1,11 @@
-import { CommonModule } from '@angular/common';
-import { Component, OnDestroy, OnInit, ChangeDetectionStrategy, inject } from '@angular/core';
-import {
-  FormControl,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
-import { RouterModule } from '@angular/router';
-import { TranslocoModule } from '@jsverse/transloco';
-import { LucideCheckCheck, LucideHistory, LucidePlus, LucideScale, LucideX } from '@lucide/angular';
-import { Subscription } from 'rxjs';
+import { CurrencyPipe } from '@angular/common';
+import { Component, OnInit, computed, inject, signal } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { RouterLink } from '@angular/router';
+import { TranslocoDirective, TranslocoService } from '@jsverse/transloco';
+import { LucideCheckCheck, LucideHistory, LucidePlus, LucideScale } from '@lucide/angular';
+import { finalize } from 'rxjs';
 import { Navbar } from 'src/app/components/navbar/navbar';
 import { PopupComponent } from 'src/app/components/popup/popup.component';
 import { Balance } from 'src/app/models/balance.model';
@@ -17,185 +13,114 @@ import { Debt } from 'src/app/models/debt.model';
 import { User } from 'src/app/models/user.model';
 import { CommunityService } from 'src/app/services/community.service';
 import { DebtService } from 'src/app/services/debt.service';
+import { ToastService } from 'src/app/services/toast.service';
 import { UserService } from 'src/app/services/user.service';
+
+const CLEAR_OFF_NAME = 'debt ausgeglichen'; // stored in the DB, so keep it language-independent
+
 @Component({
   selector: 'app-debts',
   templateUrl: './debts.page.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
-    CommonModule,
-    RouterModule,
     ReactiveFormsModule,
+    RouterLink,
+    CurrencyPipe,
+    TranslocoDirective,
     LucidePlus,
     LucideHistory,
-    LucideX,
     LucideScale,
     LucideCheckCheck,
     PopupComponent,
     Navbar,
-    TranslocoModule
   ],
 })
-export class DebtsPage implements OnInit, OnDestroy {
-  private debtService = inject(DebtService);
-  private userService = inject(UserService);
-  private communityService = inject(CommunityService);
+export class DebtsPage implements OnInit {
+  private readonly debtService = inject(DebtService);
+  private readonly userService = inject(UserService);
+  private readonly communityService = inject(CommunityService);
+  private readonly toast = inject(ToastService);
+  private readonly transloco = inject(TranslocoService);
 
+  protected readonly currentUser = this.userService.user;
+  protected readonly balances = toSignal(this.debtService.getBalance(), {
+    initialValue: [] as Balance[],
+  });
+  protected readonly otherUsers = computed(() =>
+    this.communityService.usersInActiveCommunity().filter((u) => u.id !== this.currentUser()?.id),
+  );
 
-  subscriptions: Subscription[] = [];
+  protected readonly editorIsOpen = signal(false);
+  protected readonly clearOffTarget = signal<Balance | null>(null);
+  protected readonly iOwe = signal(false);
+  protected readonly saving = signal(false);
 
-  editorIsOpen = false;
+  protected readonly debtForm = new FormGroup({
+    debitor: new FormControl<User | null>(null, Validators.required),
+    amount: new FormControl<number | null>(null, [Validators.required, Validators.min(0.01)]),
+    name: new FormControl('', { nonNullable: true, validators: Validators.required }),
+  });
 
-  clearOffEditorBalance: Balance = null;
-
-  itemEditorForm: FormGroup;
-  clearOffBalanceEditorForm: FormGroup;
-
-  usersInCommunity = this.communityService.usersInActiveCommunity;
-
-  allBalances: Balance[] = [];
-
-  iOwe = false;
-
-  currentUser = this.userService.user;
-
-  constructor() {
-    this.itemEditorForm = new FormGroup({
-      debitor: new FormControl<string | null>('', [
-        Validators.minLength(1),
-        Validators.required,
-      ]),
-      amount: new FormControl<string | null>('', [
-        Validators.pattern(/^[0-9]*((\.|,)[0-9]{0,2})?$/),
-        Validators.required,
-      ]),
-      name: new FormControl<string | null>('', [
-        Validators.minLength(1),
-        Validators.required,
-      ]),
-    });
-
-    this.clearOffBalanceEditorForm = new FormGroup({
-      amount: new FormControl<string | null>('', [
-        Validators.pattern(/^[0-9]{0,2}(\.\d{1,2})?/),
-        Validators.required,
-      ]),
-    });
-  }
-
-  get debitorControl() {
-    return this.itemEditorForm.get('debitor');
-  }
-
-  get amountControl() {
-    return this.itemEditorForm.get('amount');
-  }
-
-  get nameControl() {
-    return this.itemEditorForm.get('name');
-  }
+  protected readonly clearOffForm = new FormGroup({
+    amount: new FormControl<number | null>(null, [Validators.required, Validators.min(0.01)]),
+  });
 
   ngOnInit() {
-    this.getItems();
+    this.refresh();
+  }
 
-    this.subscriptions.push(
-      this.debtService.getBalance().subscribe((balances) => {
-        this.allBalances = balances;
-      })
+  protected openClearOffEditor(balance: Balance) {
+    this.clearOffForm.setValue({ amount: Math.abs(balance.amount) });
+    this.clearOffTarget.set(balance);
+  }
+
+  protected saveDebt() {
+    const me = this.currentUser();
+    const { debitor, amount, name } = this.debtForm.getRawValue();
+    if (this.debtForm.invalid || this.saving() || !me || !debitor || amount === null) return;
+
+    this.submit(this.createDebt(name, amount, debitor, me, this.iOwe()), () => {
+      this.debtForm.reset();
+      this.editorIsOpen.set(false);
+    });
+  }
+
+  protected clearOff() {
+    const me = this.currentUser();
+    const balance = this.clearOffTarget();
+    const { amount } = this.clearOffForm.getRawValue();
+    if (this.clearOffForm.invalid || this.saving() || !me || !balance || amount === null) return;
+
+    this.submit(
+      this.createDebt(CLEAR_OFF_NAME, amount, balance.debitor, me, balance.amount < 0),
+      () => this.clearOffTarget.set(null),
     );
-
-
-    const usersInCommunityAll = this.communityService.usersInActiveCommunity();
-    console.log(usersInCommunityAll);
-    //this.usersInCommunity = usersInCommunityAll.filter((user) => user.id !== this.currentUser?.id);
   }
 
-  ngOnDestroy(): void {
-    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
+  private createDebt(name: string, amount: number, other: User, me: User, currentUserIsCreditor: boolean) {
+    return new Debt({
+      id: undefined,
+      name,
+      amount,
+      debitor: currentUserIsCreditor ? other : me,
+      creditor: currentUserIsCreditor ? me : other,
+    });
   }
 
-  filterCurrentUser() {
-    /*if (this.currentUser && this.usersInCommunity.length) {
-      this.usersInCommunity = this.usersInCommunity.filter(
-        (user) => user.id !== this.currentUser.id
-      );
-    }*/
+  private submit(debt: Debt, onSuccess: () => void) {
+    this.saving.set(true);
+    this.debtService
+      .addDebt(debt)
+      .pipe(finalize(() => this.saving.set(false)))
+      .subscribe({
+        next: () => {
+          onSuccess();
+          this.refresh();
+        },
+        error: () => this.toast.error(this.transloco.translate('debts.saveError')),
+      });
   }
 
-  openEditor(state: boolean) {
-    this.editorIsOpen = state;
-  }
-
-  openClearOffEditor(item?: Balance) {
-    this.clearOffEditorBalance = item;
-    if (item) {
-      this.clearOffBalanceEditorForm.controls.amount.setValue(
-        item.amount < 0 ? item.amount * -1 : item.amount
-      );
-    }
-  }
-
-  getItems() {
+  private refresh() {
     this.debtService.fetchDebtsAndBalanceFromApi();
-  }
-
-  clearOffBalance(balance: Balance) {
-    this.clearOffEditorBalance = null;
-    let debt: Debt;
-    if (balance.amount < 0) {
-      debt = new Debt({
-        id: undefined,
-        name: 'debt ausgeglichen',
-        amount: this.clearOffBalanceEditorForm.controls.amount.value,
-        debitor: balance.debitor,
-        creditor: this.currentUser(),
-      });
-    } else {
-      debt = new Debt({
-        id: undefined,
-        name: 'debt ausgeglichen',
-        amount: this.clearOffBalanceEditorForm.controls.amount.value,
-        debitor: this.currentUser(),
-        creditor: balance.debitor,
-      });
-    }
-
-    this.subscriptions.push(
-      this.debtService.addDebt(debt).subscribe((res) => {
-        this.getItems();
-      })
-    );
-  }
-
-  saveDebt() {
-    this.editorIsOpen = false;
-    let debt: Debt;
-    if (this.iOwe) {
-      debt = new Debt({
-        id: undefined,
-        name: this.nameControl.value,
-        amount: this.amountControl.value,
-        debitor: this.debitorControl.value,
-        creditor: this.currentUser(),
-      });
-    } else {
-      debt = new Debt({
-        id: undefined,
-        name: this.nameControl.value,
-        amount: this.amountControl.value,
-        debitor: this.currentUser(),
-        creditor: this.debitorControl.value,
-      });
-    }
-
-    this.subscriptions.push(
-      this.debtService.addDebt(debt).subscribe((res) => {
-        this.getItems();
-      })
-    );
-  }
-
-  changeIOwe(iOwe: boolean) {
-    this.iOwe = iOwe;
   }
 }

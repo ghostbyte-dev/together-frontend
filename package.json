@@ -50,5 +50,12 @@
     "ts-node": "~10.9.2",
     "typescript": "~6.0.3"
   },
-  "description": "An Angular Project"
+  "description": "An Angular Project",
+  "allowScripts": {
+    "@parcel/watcher@2.6.0": true,
+    "esbuild@0.28.2": true,
+    "fsevents@2.3.3": true,
+    "lmdb@3.5.6": true,
+    "msgpackr-extract@3.0.4": true
+  }
 }

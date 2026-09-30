@@ -1,51 +1,46 @@
-import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import {
   FormControl,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { TranslocoModule } from '@jsverse/transloco';
+import { TranslocoDirective } from '@jsverse/transloco';
+import { finalize } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-request-password-reset',
-  imports: [ReactiveFormsModule, TranslocoModule],
-  changeDetection: ChangeDetectionStrategy.Eager,
+  imports: [ReactiveFormsModule, TranslocoDirective],
   templateUrl: './request-password-reset.html',
 })
 export class RequestPasswordReset {
-  private authService = inject(AuthService);
+  private readonly authService = inject(AuthService);
 
-  emailForm: FormGroup;
+  protected readonly emailForm = new FormGroup({
+    email: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required, Validators.email],
+    }),
+  });
 
-  sent = false;
-  error = '';
-
-  constructor() {
-    this.emailForm = new FormGroup({
-      email: new FormControl<string | null>('', [
-        Validators.required,
-        Validators.email,
-      ]),
-    });
-  }
-
-  get email() {
-    return this.emailForm.get('email');
-  }
+  protected readonly sent = signal(false);
+  protected readonly loading = signal(false);
+  protected readonly hasError = signal(false);
 
   onSubmit() {
-    if (this.emailForm.valid) {
-      this.authService
-        .requestPasswordReset(this.email.value)
-        .subscribe((res) => {
-          if (res.success) {
-            this.sent = true;
-          } else {
-            this.error = 'Ein Fehler ist aufgetreten';
-          }
-        });
-    }
+    if (this.emailForm.invalid || this.loading()) return;
+
+    this.loading.set(true);
+    this.hasError.set(false);
+
+    this.authService
+      .requestPasswordReset(this.emailForm.controls.email.value)
+      .pipe(finalize(() => this.loading.set(false)))
+      .subscribe({
+        next: (res) =>
+          res.success ? this.sent.set(true) : this.hasError.set(true),
+        error: () => this.hasError.set(true),
+      });
   }
 }
