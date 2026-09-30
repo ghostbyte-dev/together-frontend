@@ -1,4 +1,4 @@
-import { Component, signal, ChangeDetectionStrategy, inject } from '@angular/core';
+import { Component, signal, inject } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
 import { CommunityService } from 'src/app/services/community.service';
@@ -17,6 +17,7 @@ import {
 import { PrimaryButton } from 'src/app/components/primary-button/primary-button';
 import { LucideArrowLeftRight, LucideLogOut, LucideUserPen } from '@lucide/angular';
 import { ToastService } from 'src/app/services/toast.service';
+import { TranslocoDirective, TranslocoService } from '@jsverse/transloco';
 
 @Component({
   selector: 'app-profile',
@@ -39,6 +40,7 @@ export class ProfilePage {
   private readonly userService = inject(UserService);
   private readonly communityService = inject(CommunityService);
   private readonly toast = inject(ToastService);
+  private readonly transloco = inject(TranslocoService);
 
   feedbackForm = new FormGroup({
     feedback: new FormControl<string | null>('', [
