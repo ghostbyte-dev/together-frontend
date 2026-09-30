@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { TranslocoService } from '@jsverse/transloco';
 
 @Component({
@@ -8,9 +8,13 @@ import { TranslocoService } from '@jsverse/transloco';
   templateUrl: './language-switcher.html',
 })
 export class LanguageSwitcher {
+  private translocoService = inject(TranslocoService);
+
   activeLang: string;
 
-  constructor(private translocoService: TranslocoService) {
+  constructor() {
+    const translocoService = this.translocoService;
+
     this.activeLang = translocoService.getActiveLang();
 
     translocoService.langChanges$.subscribe(lang => {

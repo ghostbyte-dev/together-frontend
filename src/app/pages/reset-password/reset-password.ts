@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, inject } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -16,14 +16,15 @@ import { AuthService } from 'src/app/services/auth.service';
   templateUrl: './reset-password.html',
 })
 export class ResetPassword implements OnInit {
+  private authService = inject(AuthService);
+  private activatedRoute = inject(ActivatedRoute);
+
   resetForm: FormGroup;
 
   code: string | null = '';
 
-  constructor(
-    private authService: AuthService,
-    private activatedRoute: ActivatedRoute
-  ) {
+
+  constructor() {
     this.resetForm = new FormGroup({
       password: new FormControl<string | null>('', [Validators.required]),
     });

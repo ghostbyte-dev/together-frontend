@@ -1,4 +1,4 @@
-import { Component, computed, effect, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, computed, effect, OnInit, ChangeDetectionStrategy, inject } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { JoinCommunityComponent } from 'src/app/components/join-community/join-community.component';
 import { PopupComponent } from 'src/app/components/popup/popup.component';
@@ -49,6 +49,13 @@ import { ToastService } from 'src/app/services/toast.service';
 ],
 })
 export class OnboardingComponent implements OnInit {
+  private userService = inject(UserService);
+  private communityService = inject(CommunityService);
+  private authService = inject(AuthService);
+  private alertService = inject(AlertService);
+  private router = inject(Router);
+  private toastr = inject(ToastService);
+
 
   subscriptions: Subscription[] = [];
 
@@ -97,14 +104,7 @@ export class OnboardingComponent implements OnInit {
   isLoadingNameChange = false;
   isLoadingCommunityNameChange = false;
 
-  constructor(
-    private userService: UserService,
-    private communityService: CommunityService,
-    private authService: AuthService,
-    private alertService: AlertService,
-    private router: Router,
-    private toastr: ToastService
-  ) {
+  constructor() {
     effect(() => {
       this.nameUpdateEditorForm.controls.name.setValue(this.user()?.name);
     });

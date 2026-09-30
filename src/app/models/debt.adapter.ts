@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { ApiDebt, Debt } from './debt.model';
 import { Adapter } from './adapter';
 import { UserAdapter } from './user.adapter';
@@ -7,7 +7,7 @@ import { UserAdapter } from './user.adapter';
   providedIn: 'root',
 })
 export class DebtAdapter implements Adapter<ApiDebt, Debt> {
-  constructor(private userAdapter: UserAdapter) {}
+  private userAdapter = inject(UserAdapter);
 
   adapt(item: ApiDebt): Debt {
     const debitor = this.userAdapter.adapt(item.debitor);

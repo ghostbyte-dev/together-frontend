@@ -1,5 +1,5 @@
 
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, inject } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { TranslocoModule } from '@jsverse/transloco';
 import { LucideLoader } from '@lucide/angular';
@@ -12,15 +12,13 @@ import { AuthService } from 'src/app/services/auth.service';
   imports: [RouterModule, TranslocoModule, LucideLoader],
 })
 export class VerifyPage implements OnInit {
+  private route = inject(ActivatedRoute);
+  private authService = inject(AuthService);
+
   code: string | null = '';
 
   isLoading = false;
   error = '';
-
-  constructor(
-    private route: ActivatedRoute,
-    private authService: AuthService
-  ) {}
 
   ngOnInit() {
     this.code = this.route.snapshot.paramMap.get('code');

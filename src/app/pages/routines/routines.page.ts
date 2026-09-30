@@ -1,5 +1,5 @@
 
-import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { TranslocoModule } from '@jsverse/transloco';
 import { LucideArrowLeft, LucidePlus } from '@lucide/angular';
@@ -27,6 +27,8 @@ import { CalendarService } from 'src/app/services/calendar.service';
 ],
 })
 export class RoutinesPage implements OnInit, OnDestroy {
+  private calendarService = inject(CalendarService);
+
 
   subscriptions: Subscription[] = [];
 
@@ -38,8 +40,6 @@ export class RoutinesPage implements OnInit, OnDestroy {
   newRoutineEditorIsOpen = false;
 
   openRoutineEditor: Routine = null;
-
-  constructor(private calendarService: CalendarService) {}
 
   ngOnInit() {
     this.subscriptions.push(

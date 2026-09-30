@@ -1,4 +1,4 @@
-import { Injectable, OnDestroy, signal } from '@angular/core';
+import { Injectable, OnDestroy, signal, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, Subscription, tap } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
@@ -12,18 +12,18 @@ import { ToastService } from './toast.service';
   providedIn: 'root',
 })
 export class AuthService {
+  private router = inject(Router);
+  private apiService = inject(ApiService);
+  private alertService = inject(AlertService);
+  private storageService = inject(StorageService);
+  private toastr = inject(ToastService);
+
   activeUserId = signal<number | null>(null);
   activeCommunityId = signal<number | null>(null);
 
   private helper: JwtHelperService;
 
-  constructor(
-    private router: Router,
-    private apiService: ApiService,
-    private alertService: AlertService,
-    private storageService: StorageService,
-    private toastr: ToastService
-  ) {
+  constructor() {
     this.helper = new JwtHelperService();
     this.initializeValues();
   }

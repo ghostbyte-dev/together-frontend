@@ -1,4 +1,4 @@
-import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
+import { Component, signal, ChangeDetectionStrategy, inject } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
 import { CommunityService } from 'src/app/services/community.service';
@@ -15,14 +15,12 @@ import {
   Validators,
 } from '@angular/forms';
 import { PrimaryButton } from 'src/app/components/primary-button/primary-button';
-import { TranslocoModule, TranslocoService } from '@jsverse/transloco';
-import { LucideArrowLeftRight, LucideLogOut, LucidePalette, LucideUserPen } from '@lucide/angular';
+import { LucideArrowLeftRight, LucideLogOut, LucideUserPen } from '@lucide/angular';
 import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.page.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     RouterModule,
     OpenRequestsComponent,
@@ -30,14 +28,17 @@ import { ToastService } from 'src/app/services/toast.service';
     PrimaryButton,
     Navbar,
     PopupComponent,
-    TranslocoModule,
-    LucidePalette,
     LucideUserPen,
     LucideArrowLeftRight,
     LucideLogOut
 ],
 })
 export class ProfilePage {
+  private readonly authService = inject(AuthService);
+  private readonly alertService = inject(AlertService);
+  private readonly userService = inject(UserService);
+  private readonly communityService = inject(CommunityService);
+  private readonly toast = inject(ToastService);
 
   feedbackForm = new FormGroup({
     feedback: new FormControl<string | null>('', [
@@ -54,15 +55,6 @@ export class ProfilePage {
   community = this.communityService.activeCommunity;
   usersInCommunity = this.communityService.usersInActiveCommunity;
 
-  constructor(
-    private authService: AuthService,
-    private alertService: AlertService,
-    private userService: UserService,
-    private communityService: CommunityService,
-    private toastr: ToastService,
-    private translocoService: TranslocoService
-  ) {}
-
   logout() {
     this.alertService.showAlert(
       'Abmelden?',
@@ -76,7 +68,7 @@ export class ProfilePage {
   }
 
   openFeedbackPopup() {
-    this.feedbackForm.controls.feedback.setValue('');
+    this.feedbackForm.controls.feedback.reset();
     this.feedbackPopupIsOpen.set(true);
   }
 
@@ -87,10 +79,10 @@ export class ProfilePage {
       .subscribe((res) => {
         this.isSendingFeedback.set(false);
         if (res.success) {
-          this.toastr.success('Feedback gesendet!');
+          this.toast.success('Feedback gesendet!');
           this.feedbackPopupIsOpen.set(false);
         } else {
-          this.toastr.error(res.error);
+          this.toast.error(res.error);
         }
       });
   }

@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, inject } from '@angular/core';
 import {
   FormGroup,
   FormControl,
@@ -20,18 +20,18 @@ import { ToastService } from 'src/app/services/toast.service';
   imports: [ReactiveFormsModule, PrimaryButton, TranslocoModule],
 })
 export class CreateCommunityComponent implements OnInit {
+  private userService = inject(UserService);
+  private communityService = inject(CommunityService);
+  private router = inject(Router);
+  private toastr = inject(ToastService);
+
   subscriptions: Subscription[] = [];
 
   communityForm: FormGroup;
 
   isLoadingCreateCommunity = false;
 
-  constructor(
-    private userService: UserService,
-    private communityService: CommunityService,
-    private router: Router,
-    private toastr: ToastService
-  ) {
+  constructor() {
     this.communityForm = new FormGroup({
       name: new FormControl<string | null>('', [
         Validators.required,

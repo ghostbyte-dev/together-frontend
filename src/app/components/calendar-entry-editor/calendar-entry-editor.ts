@@ -1,5 +1,4 @@
-
-import { Component, EventEmitter, Input, OnInit, Output, ChangeDetectionStrategy } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ChangeDetectionStrategy, inject } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -21,6 +20,10 @@ import { ToastService } from 'src/app/services/toast.service';
   templateUrl: './calendar-entry-editor.html',
 })
 export class CalendarEntryEditor implements OnInit {
+  private calendarService = inject(CalendarService);
+  private alertService = inject(AlertService);
+  private toastrService = inject(ToastService);
+
   @Input() calendarEntry?: CalendarEntry;
   @Input() date?: Date;
   @Output() closeEditor: EventEmitter<any> = new EventEmitter();
@@ -36,17 +39,14 @@ export class CalendarEntryEditor implements OnInit {
   assignableUsers: User[] = [];
   assignedUsers: User[] = [];
 
-  constructor(
-    private calendarService: CalendarService,
-    private alertService: AlertService,
-    private toastrService: ToastService
-  ) {
+
+  constructor() {
     this.calendarEntryForm = new FormGroup({
-      name: new FormControl<string | null>('', [
-        Validators.minLength(1),
-        Validators.required,
-      ]),
-      notes: new FormControl<string | null>('', []),
+      name: new FormControl('', {
+        nonNullable: true,
+        validators: [Validators.required, Validators.minLength(1)],
+      }),
+      notes: new FormControl('', { nonNullable: true }),
     });
   }
   ngOnInit(): void {
@@ -73,7 +73,7 @@ export class CalendarEntryEditor implements OnInit {
       'Eintrag löschen?',
       'Okay',
       this.deleteCalendarEntry.bind(this),
-      'Cancel'
+      'Cancel',
     );
   }
 
@@ -91,7 +91,7 @@ export class CalendarEntryEditor implements OnInit {
           } else {
             this.toastrService.error(res.error);
           }
-        })
+        }),
     );
   }
 
@@ -108,7 +108,7 @@ export class CalendarEntryEditor implements OnInit {
           } else {
             this.toastrService.error('Fehler beim löschen');
           }
-        })
+        }),
     );
   }
 

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { ApiCalendarEntry, CalendarEntry } from './calendarEntry.model';
 import { Adapter } from './adapter';
 import { UserAdapter } from './user.adapter';
@@ -9,7 +9,7 @@ import { UserAdapter } from './user.adapter';
 export class CalendarEntryAdapter
   implements Adapter<ApiCalendarEntry, CalendarEntry>
 {
-  constructor(private userAdapter: UserAdapter) {}
+  private userAdapter = inject(UserAdapter);
 
   adapt(item: ApiCalendarEntry): CalendarEntry {
     const date = new Date(item.date);

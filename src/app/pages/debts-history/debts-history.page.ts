@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { TranslocoModule } from '@jsverse/transloco';
 import {
@@ -28,13 +28,14 @@ import { DebtService } from 'src/app/services/debt.service';
   ],
 })
 export class DebtsHistoryPage implements OnInit {
+  private debtService = inject(DebtService);
+
   subscriptions: Subscription[] = [];
 
   debts: Debt[] = [];
 
   currentUser: User;
 
-  constructor(private debtService: DebtService) {}
 
   ngOnInit() {
     this.getItems();

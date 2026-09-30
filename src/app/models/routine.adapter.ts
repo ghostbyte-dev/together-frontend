@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Adapter } from './adapter';
 import { UserAdapter } from './user.adapter';
 import { ApiRoutine, Routine } from './routine.model';
@@ -7,7 +7,7 @@ import { ApiRoutine, Routine } from './routine.model';
   providedIn: 'root',
 })
 export class RoutineAdapter implements Adapter<ApiRoutine, Routine> {
-  constructor(private userAdapter: UserAdapter) {}
+  private userAdapter = inject(UserAdapter);
 
   adapt(item: ApiRoutine): Routine {
     const startDate = new Date(item.startDate);

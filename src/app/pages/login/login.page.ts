@@ -1,5 +1,5 @@
 
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -20,17 +20,17 @@ import { ToastService } from 'src/app/services/toast.service';
   imports: [ReactiveFormsModule, RouterModule, PrimaryButton, TranslocoModule],
 })
 export class LoginPage {
+  private authService = inject(AuthService);
+  private router = inject(Router);
+  private toastr = inject(ToastService);
+  private alertService = inject(AlertService);
+
 
   loginForm: FormGroup;
 
   isLoading = false;
 
-  constructor(
-    private authService: AuthService,
-    private router: Router,
-    private toastr: ToastService,
-    private alertService: AlertService
-  ) {
+  constructor() {
     this.loginForm = new FormGroup({
       email: new FormControl<string | null>('', Validators.required),
       password: new FormControl<string | null>('', Validators.required),

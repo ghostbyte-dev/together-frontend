@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy, inject } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -37,6 +37,10 @@ import { UserService } from 'src/app/services/user.service';
   ],
 })
 export class DebtsPage implements OnInit, OnDestroy {
+  private debtService = inject(DebtService);
+  private userService = inject(UserService);
+  private communityService = inject(CommunityService);
+
 
   subscriptions: Subscription[] = [];
 
@@ -55,11 +59,7 @@ export class DebtsPage implements OnInit, OnDestroy {
 
   currentUser = this.userService.user;
 
-  constructor(
-    private debtService: DebtService,
-    private userService: UserService,
-    private communityService: CommunityService
-  ) {
+  constructor() {
     this.itemEditorForm = new FormGroup({
       debitor: new FormControl<string | null>('', [
         Validators.minLength(1),

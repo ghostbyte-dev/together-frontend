@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Adapter } from './adapter';
 import { ApiTodo, Todo } from './todo.model';
 import { UserAdapter } from './user.adapter';
@@ -7,7 +7,7 @@ import { UserAdapter } from './user.adapter';
   providedIn: 'root',
 })
 export class TodoAdapter implements Adapter<ApiTodo, Todo> {
-  constructor(private userAdapter: UserAdapter) {}
+  private userAdapter = inject(UserAdapter);
 
   adapt(item: ApiTodo): Todo {
     return new Todo({

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output, ChangeDetectionStrategy } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ChangeDetectionStrategy, inject } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -20,6 +20,10 @@ import { ToastService } from 'src/app/services/toast.service';
   imports: [ReactiveFormsModule, PrimaryButton, TranslocoModule],
 })
 export class JoinCommunityComponent implements OnInit {
+  private communityService = inject(CommunityService);
+  private alertService = inject(AlertService);
+  private toastr = inject(ToastService);
+
   @Output() closePopup: EventEmitter<any> = new EventEmitter();
   subscriptions: Subscription[] = [];
 
@@ -29,11 +33,8 @@ export class JoinCommunityComponent implements OnInit {
   isLoadingRequest = false;
 
   foundCommunity: Community = null;
-  constructor(
-    private communityService: CommunityService,
-    private alertService: AlertService,
-    private toastr: ToastService
-  ) {
+
+  constructor() {
     this.searchForm = new FormGroup({
       search: new FormControl<string | null>('', [
         Validators.required,

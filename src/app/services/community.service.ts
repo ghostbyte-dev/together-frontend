@@ -1,4 +1,4 @@
-import { effect, Injectable, signal } from '@angular/core';
+import { effect, Injectable, signal, inject } from '@angular/core';
 import { map, Observable, tap } from 'rxjs';
 import { ApiCommunity, Community } from '../models/community.model';
 import { ApiService } from './api.service';
@@ -14,17 +14,17 @@ import { ApiRequest } from '../models/request.model';
   providedIn: 'root',
 })
 export class CommunityService {
+  private apiService = inject(ApiService);
+  private authService = inject(AuthService);
+  private communityAdapter = inject(CommunityAdapter);
+  private storageService = inject(StorageService);
+  private userAdapter = inject(UserAdapter);
+
   activeCommunity = signal<Community | null>(null);
   usersInActiveCommunity = signal<User[]>([]);
   myCommunities = signal<Community[]>([]);
 
-  constructor(
-    private apiService: ApiService,
-    private authService: AuthService,
-    private communityAdapter: CommunityAdapter,
-    private storageService: StorageService,
-    private userAdapter: UserAdapter
-  ) {
+  constructor() {
     // Automatically fetch community whenever activeCommunityId changes
     effect(() => {
       const communityId = this.authService.activeCommunityId();

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Adapter } from './adapter';
 import { ApiBalance, Balance } from './balance.model';
 import { UserAdapter } from './user.adapter';
@@ -7,7 +7,7 @@ import { UserAdapter } from './user.adapter';
   providedIn: 'root',
 })
 export class BalanceAdapter implements Adapter<ApiBalance, Balance> {
-  constructor(private userAdapter: UserAdapter) {}
+  private userAdapter = inject(UserAdapter);
 
   adapt(item: ApiBalance): Balance {
     return new Balance({

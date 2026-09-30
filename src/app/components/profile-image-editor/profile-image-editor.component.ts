@@ -1,11 +1,5 @@
 
-import {
-  Component,
-  EventEmitter,
-  Output,
-  SecurityContext,
-  ChangeDetectionStrategy
-} from '@angular/core';
+import { Component, EventEmitter, Output, SecurityContext, ChangeDetectionStrategy, inject } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import {
   ImageCroppedEvent,
@@ -25,6 +19,11 @@ import { ToastService } from 'src/app/services/toast.service';
   imports: [ImageCropperComponent, PrimaryButton, TranslocoModule],
 })
 export class ProfileImageEditorComponent {
+  private apiService = inject(ApiService);
+  private domSanitizer = inject(DomSanitizer);
+  private userService = inject(UserService);
+  private toastr = inject(ToastService);
+
   @Output() closeEditor: EventEmitter<any> = new EventEmitter();
 
   imageChangedEvent: Event | null = null;
@@ -34,12 +33,6 @@ export class ProfileImageEditorComponent {
 
   isSavingImage = false;
 
-  constructor(
-    private apiService: ApiService,
-    private domSanitizer: DomSanitizer,
-    private userService: UserService,
-    private toastr: ToastService
-  ) {}
 
   async saveImage() {
     const url = this.domSanitizer.sanitize(

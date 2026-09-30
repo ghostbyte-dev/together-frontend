@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ApiUser, User } from './user.model';
 import { Adapter } from './adapter';
@@ -7,7 +7,7 @@ import { Adapter } from './adapter';
   providedIn: 'root',
 })
 export class UserAdapter implements Adapter<ApiUser, User> {
-  constructor(private domSanitizer: DomSanitizer) {}
+  private domSanitizer = inject(DomSanitizer);
 
   adapt(item: ApiUser): User {
     const creationDate = new Date(item.creationdate);

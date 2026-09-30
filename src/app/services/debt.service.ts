@@ -1,4 +1,4 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { Injectable, OnDestroy, inject } from '@angular/core';
 import { BehaviorSubject, map, Observable, Subscription } from 'rxjs';
 import { Debt } from '../models/debt.model';
 import { ApiService } from './api.service';
@@ -12,16 +12,17 @@ import { ApiResponse } from '../models/api-response';
   providedIn: 'root'
 })
 export class DebtService implements OnDestroy {
+  private apiService = inject(ApiService);
+  private debtAdapter = inject(DebtAdapter);
+  private balanceAdapter = inject(BalanceAdapter);
+  private communityService = inject(CommunityService);
+
 
   subscriptions: Subscription[] = [];
   private balances = new BehaviorSubject<Balance[]>([]);
   private debts = new BehaviorSubject<Debt[]>([]);
-  constructor(
-    private apiService: ApiService,
-    private debtAdapter: DebtAdapter,
-    private balanceAdapter: BalanceAdapter,
-    private communityService: CommunityService
-  ) {
+
+  constructor() {
     /* this.subscriptions.push(this.communityService.getCurrentCommunity().subscribe(community => {
       this.fetchDebtsAndBalanceFromApi();
     })); */

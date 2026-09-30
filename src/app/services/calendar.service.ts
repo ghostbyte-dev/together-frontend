@@ -1,4 +1,4 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { Injectable, OnDestroy, inject } from '@angular/core';
 import {
   BehaviorSubject,
   concatMap,
@@ -18,15 +18,15 @@ import { ApiResponse } from '../models/api-response';
   providedIn: 'root',
 })
 export class CalendarService implements OnDestroy {
+  private apiService = inject(ApiService);
+  private calendarEntryAdapter = inject(CalendarEntryAdapter);
+  private routineAdapter = inject(RoutineAdapter);
+
   subscriptions: Subscription[] = [];
 
   private routines = new BehaviorSubject<Routine[]>([]);
 
-  constructor(
-    private apiService: ApiService,
-    private calendarEntryAdapter: CalendarEntryAdapter,
-    private routineAdapter: RoutineAdapter
-  ) {}
+  constructor() {}
 
   ngOnDestroy(): void {
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());

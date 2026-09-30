@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { TaskCardComponent } from 'src/app/components/task-card/task-card.component';
@@ -31,6 +31,8 @@ import { LucideChevronLeft, LucideChevronRight, LucideInfinity, LucidePlus } fro
   ],
 })
 export class CalendarPage implements OnInit, OnDestroy {
+  private calendarService = inject(CalendarService);
+
 
   subscriptions: Subscription[] = [];
 
@@ -45,8 +47,6 @@ export class CalendarPage implements OnInit, OnDestroy {
 
   entryToEdit: CalendarEntry = null;
   dateForNewEntry: Date = null;
-
-  constructor(private calendarService: CalendarService) {}
 
   ngOnInit() {
     this.dayToday = new Date();

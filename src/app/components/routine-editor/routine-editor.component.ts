@@ -1,13 +1,5 @@
 
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnDestroy,
-  OnInit,
-  Output,
-  ChangeDetectionStrategy
-} from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ChangeDetectionStrategy, inject } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -30,6 +22,9 @@ import { CommunityService } from 'src/app/services/community.service';
   standalone: true,
 })
 export class RoutineEditorComponent implements OnInit, OnDestroy {
+  private calendarService = inject(CalendarService);
+  private communityService = inject(CommunityService);
+
 
   @Input() routine: Routine;
   @Output() closeEditor: EventEmitter<any> = new EventEmitter();
@@ -47,10 +42,7 @@ export class RoutineEditorComponent implements OnInit, OnDestroy {
 
   updateRoutineEditorOpenId = -1;
 
-  constructor(
-    private calendarService: CalendarService,
-    private communityService: CommunityService
-  ) {
+  constructor() {
     this.routineForm = new FormGroup({
       name: new FormControl<string | null>('', [
         Validators.minLength(1),

@@ -17,11 +17,9 @@ export class AlertComponent {
 
   constructor() {
     // Automatically manages subscription cleanup on component destroy
-    this.alertService.alert
-      .pipe(takeUntilDestroyed())
-      .subscribe((alert) => {
-        this.alert = alert;
-      });
+    this.alertService.alert.pipe(takeUntilDestroyed()).subscribe((alert) => {
+      this.alert = alert;
+    });
   }
 
   onSubmit() {

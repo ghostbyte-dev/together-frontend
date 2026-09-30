@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -19,15 +19,15 @@ import { AuthService } from 'src/app/services/auth.service';
   imports: [CommonModule, ReactiveFormsModule, RouterModule, PrimaryButton, TranslocoModule],
 })
 export class RegisterPage {
+  private authService = inject(AuthService);
+  private alertService = inject(AlertService);
+  private router = inject(Router);
+
   registerForm: FormGroup;
 
   isLoading = false;
 
-  constructor(
-    private authService: AuthService,
-    private alertService: AlertService,
-    private router: Router
-  ) {
+  constructor() {
     this.registerForm = new FormGroup({
       email: new FormControl<string | null>('', [
         Validators.required,

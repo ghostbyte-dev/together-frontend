@@ -1,5 +1,4 @@
-
-import { Component, ElementRef, OnInit, ViewChild, effect, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ElementRef, ViewChild, ChangeDetectionStrategy, inject } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -13,7 +12,10 @@ import { PrimaryButton } from 'src/app/components/primary-button/primary-button'
 import { ShoppingItem } from 'src/app/models/shopping-item.model';
 import { AlertService } from 'src/app/services/alert.service';
 import { ShoppingService } from 'src/app/services/shopping.service';
-import { LucideCheck, LucideCheckCheck, LucidePlus, LucideX } from '@lucide/angular';
+import {
+  LucideCheckCheck,
+  LucideX,
+} from '@lucide/angular';
 import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
@@ -26,14 +28,14 @@ import { ToastService } from 'src/app/services/toast.service';
     Navbar,
     PrimaryButton,
     TranslocoModule,
-    LucidePlus,
     LucideX,
-    LucideCheck,
-    LucideCheckCheck
-],
+    LucideCheckCheck,
+  ],
 })
 export class ShoppingListPage {
-
+  private shoppingService = inject(ShoppingService);
+  private alertService = inject(AlertService);
+  private toastr = inject(ToastService);
 
   @ViewChild('editorNameInput') editorNameInput?: ElementRef<HTMLInputElement>;
 
@@ -61,12 +63,6 @@ export class ShoppingListPage {
   openItems = this.shoppingService.openShoppingItems;
   doneItems = this.shoppingService.doneShoppingItems;
 
-  constructor(
-    private shoppingService: ShoppingService,
-    private alertService: AlertService,
-    private toastr: ToastService
-  ) {}
-
   get createNameField() {
     return this.itemEditorForm.get('createname');
   }
@@ -78,10 +74,9 @@ export class ShoppingListPage {
   openEditor(state: boolean) {
     this.itemEditorForm.controls.createname.setValue('');
     this.editorIsOpen = state;
-      setTimeout(() => {
-        this.editorNameInput?.nativeElement.focus();
-      });
-
+    setTimeout(() => {
+      this.editorNameInput?.nativeElement.focus();
+    });
   }
 
   openUpdateEditor(item?: ShoppingItem) {
@@ -103,7 +98,7 @@ export class ShoppingListPage {
           id: undefined,
           name: this.createNameField.value,
           done: undefined,
-        })
+        }),
       )
       .subscribe((res) => {
         this.isLoadingSave = false;
@@ -121,7 +116,7 @@ export class ShoppingListPage {
   updateDone(id: number, checked: boolean) {
     this.shoppingService
       .updateShoppingItem(
-        new ShoppingItem({ id, name: undefined, done: checked })
+        new ShoppingItem({ id, name: undefined, done: checked }),
       )
       .subscribe((res) => {
         if (res.success) {
@@ -145,7 +140,7 @@ export class ShoppingListPage {
           id,
           name: this.updateNameField.value,
           done: undefined,
-        })
+        }),
       )
       .subscribe((res) => {
         this.isLoadingUpdate = false;
@@ -166,7 +161,7 @@ export class ShoppingListPage {
       'Element löschen?',
       'Okay',
       () => this.deleteItem(id),
-      'Cancel'
+      'Cancel',
     );
   }
 

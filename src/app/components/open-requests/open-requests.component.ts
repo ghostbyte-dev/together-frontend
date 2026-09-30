@@ -1,10 +1,4 @@
-import {
-  Component,
-  computed,
-  effect,
-  signal,
-  ChangeDetectionStrategy
-} from '@angular/core';
+import { Component, computed, effect, signal, ChangeDetectionStrategy, inject } from '@angular/core';
 import { RequestAdapter } from 'src/app/models/request.adapter';
 import { Request } from 'src/app/models/request.model';
 import { CommunityService } from 'src/app/services/community.service';
@@ -22,17 +16,17 @@ import { ToastService } from 'src/app/services/toast.service';
   standalone: true,
 })
 export class OpenRequestsComponent {
+  private communityService = inject(CommunityService);
+  private requestAdapter = inject(RequestAdapter);
+  private userService = inject(UserService);
+  private toastr = inject(ToastService);
+
 
   subscriptions: Subscription[] = [];
 
   requests = signal<Request[]>([]);
 
-  constructor(
-    private communityService: CommunityService,
-    private requestAdapter: RequestAdapter,
-    private userService: UserService,
-    private toastr: ToastService
-  ) {
+  constructor() {
     effect(() => {
       const community = this.communityService.activeCommunity();
       if (community) {

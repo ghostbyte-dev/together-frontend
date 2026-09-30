@@ -1,4 +1,4 @@
-import { effect, Injectable, signal } from '@angular/core';
+import { effect, Injectable, signal, inject } from '@angular/core';
 import { concatMap, map, Observable, of } from 'rxjs';
 import { ApiService } from './api.service';
 import { Todo } from '../models/todo.model';
@@ -10,14 +10,14 @@ import { ApiResponse } from '../models/api-response';
   providedIn: 'root',
 })
 export class TodosService {
+  private apiService = inject(ApiService);
+  private authService = inject(AuthService);
+  private todoAdapter = inject(TodoAdapter);
+
   openTodos = signal<Todo[]>([]);
   doneTodos = signal<Todo[]>([]);
 
-  constructor(
-    private apiService: ApiService,
-    private authService: AuthService,
-    private todoAdapter: TodoAdapter
-  ) {
+  constructor() {
     effect(() => {
       const communityId = this.authService.activeCommunityId();
       console.log('active community changed');

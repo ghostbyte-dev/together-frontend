@@ -1,5 +1,5 @@
 
-import { Component, ElementRef, signal, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ElementRef, signal, ViewChild, ChangeDetectionStrategy, inject } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -34,6 +34,10 @@ import { TodosService } from 'src/app/services/todos.service';
 ],
 })
 export class Todos {
+  private todosService = inject(TodosService);
+  private alertService = inject(AlertService);
+  private toastr = inject(ToastService);
+
 
   @ViewChild('editNameInput') editNameInput?: ElementRef<HTMLInputElement>;
 
@@ -69,11 +73,6 @@ export class Todos {
   isLoadingUpdate = signal(false);
   isLoadingDelete = signal(false);
 
-  constructor(
-    private todosService: TodosService,
-    private alertService: AlertService,
-    private toastr: ToastService
-  ) {}
 
   get createNameField() {
     return this.itemEditorForm.get('createname');

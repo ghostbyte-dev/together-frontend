@@ -1,4 +1,4 @@
-import { Injectable, effect, signal } from '@angular/core';
+import { Injectable, effect, signal, inject } from '@angular/core';
 import { ShoppingItemAdapter } from '../models/shopping-item.adapter';
 import { ShoppingItem } from '../models/shopping-item.model';
 import { ApiService } from './api.service';
@@ -10,14 +10,14 @@ import { map, Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class ShoppingService {
+  private apiService = inject(ApiService);
+  private shoppingItemAdapter = inject(ShoppingItemAdapter);
+  private authService = inject(AuthService);
+
   openShoppingItems = signal<ShoppingItem[]>([]);
   doneShoppingItems = signal<ShoppingItem[]>([]);
 
-  constructor(
-    private apiService: ApiService,
-    private shoppingItemAdapter: ShoppingItemAdapter,
-    private authService: AuthService
-  ) {
+  constructor() {
     effect(() => {
       const communityId = this.authService.activeCommunityId();
       if (communityId) {

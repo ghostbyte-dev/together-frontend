@@ -1,4 +1,4 @@
-import { Component, effect, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, effect, OnDestroy, OnInit, ChangeDetectionStrategy, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { TranslocoModule } from '@jsverse/transloco';
 import { LucideCalendar, LucideCheckCheck, LucideCircleUserRound, LucideShoppingCart, LucideWallet } from '@lucide/angular';
@@ -15,6 +15,11 @@ import { TodosService } from 'src/app/services/todos.service';
   templateUrl: './main-layout.component.html',
 })
 export class MainLayoutComponent {
+  private authService = inject(AuthService);
+  private shoppingService = inject(ShoppingService);
+  private todosService = inject(TodosService);
+  private calendarService = inject(CalendarService);
+
 
   subscriptions: Subscription[] = [];
 
@@ -22,12 +27,7 @@ export class MainLayoutComponent {
   numberOfOpenTodos = 0;
   tasksForTodayExists = false;
 
-  constructor(
-    private authService: AuthService,
-    private shoppingService: ShoppingService,
-    private todosService: TodosService,
-    private calendarService: CalendarService
-  ) {
+  constructor() {
     effect(() => {
       this.numberOfOpenShoppingItems = this.shoppingService.openShoppingItems().length;
     });

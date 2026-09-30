@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -15,12 +15,14 @@ import { AuthService } from 'src/app/services/auth.service';
   templateUrl: './request-password-reset.html',
 })
 export class RequestPasswordReset {
+  private authService = inject(AuthService);
+
   emailForm: FormGroup;
 
   sent = false;
   error = '';
 
-  constructor(private authService: AuthService) {
+  constructor() {
     this.emailForm = new FormGroup({
       email: new FormControl<string | null>('', [
         Validators.required,

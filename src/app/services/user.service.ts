@@ -1,4 +1,4 @@
-import { effect, Injectable, OnDestroy, signal } from '@angular/core';
+import { effect, Injectable, OnDestroy, signal, inject } from '@angular/core';
 import { BehaviorSubject, map, Observable, Subscription } from 'rxjs';
 import { UserAdapter } from '../models/user.adapter';
 import { User } from '../models/user.model';
@@ -10,13 +10,13 @@ import { ApiResponse } from '../models/api-response';
   providedIn: 'root',
 })
 export class UserService {
+  private apiService = inject(ApiService);
+  private userAdapter = inject(UserAdapter);
+  private authService = inject(AuthService);
+
   user = signal<User | null>(null);
 
-  constructor(
-    private apiService: ApiService,
-    private userAdapter: UserAdapter,
-    private authService: AuthService
-  ) {
+  constructor() {
     effect(() => {
       const userId = this.authService.activeUserId();
       if (!userId) {

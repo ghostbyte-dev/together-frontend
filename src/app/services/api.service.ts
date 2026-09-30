@@ -3,7 +3,7 @@ import {
   HttpErrorResponse,
   HttpHeaders,
 } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
@@ -24,11 +24,9 @@ import { ApiDebt } from '../models/debt.model';
   providedIn: 'root',
 })
 export class ApiService {
-  constructor(
-    private httpClient: HttpClient,
-    private storageService: StorageService,
-    private apiResponseAdapter: ApiResponseAdapter
-  ) {}
+  private httpClient = inject(HttpClient);
+  private storageService = inject(StorageService);
+  private apiResponseAdapter = inject(ApiResponseAdapter);
 
   getHeader(): HttpHeaders {
     const headers: Record<string, string> = {};
