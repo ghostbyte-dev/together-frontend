@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { TaskCardComponent } from 'src/app/components/task-card/task-card.component';
@@ -15,6 +15,7 @@ import { LucideChevronLeft, LucideChevronRight, LucideInfinity, LucidePlus } fro
 @Component({
   selector: 'app-tasks',
   templateUrl: './calendar.page.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     CommonModule,
     RouterModule,

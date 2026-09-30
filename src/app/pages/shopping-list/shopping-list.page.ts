@@ -1,5 +1,5 @@
 
-import { Component, ElementRef, OnInit, ViewChild, effect } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, effect, ChangeDetectionStrategy } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -7,7 +7,6 @@ import {
   Validators,
 } from '@angular/forms';
 import { TranslocoModule } from '@jsverse/transloco';
-import { ToastrService } from 'ngx-toastr';
 import { Navbar } from 'src/app/components/navbar/navbar';
 import { PopupComponent } from 'src/app/components/popup/popup.component';
 import { PrimaryButton } from 'src/app/components/primary-button/primary-button';
@@ -15,10 +14,12 @@ import { ShoppingItem } from 'src/app/models/shopping-item.model';
 import { AlertService } from 'src/app/services/alert.service';
 import { ShoppingService } from 'src/app/services/shopping.service';
 import { LucideCheck, LucideCheckCheck, LucidePlus, LucideX } from '@lucide/angular';
+import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
   selector: 'app-shopping-list',
   templateUrl: './shopping-list.page.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     ReactiveFormsModule,
     PopupComponent,
@@ -63,7 +64,7 @@ export class ShoppingListPage {
   constructor(
     private shoppingService: ShoppingService,
     private alertService: AlertService,
-    private toastr: ToastrService
+    private toastr: ToastService
   ) {}
 
   get createNameField() {

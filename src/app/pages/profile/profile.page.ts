@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
 import { CommunityService } from 'src/app/services/community.service';
@@ -15,13 +15,14 @@ import {
   Validators,
 } from '@angular/forms';
 import { PrimaryButton } from 'src/app/components/primary-button/primary-button';
-import { ToastrService } from 'ngx-toastr';
 import { TranslocoModule, TranslocoService } from '@jsverse/transloco';
 import { LucideArrowLeftRight, LucideLogOut, LucidePalette, LucideUserPen } from '@lucide/angular';
+import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.page.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     RouterModule,
     OpenRequestsComponent,
@@ -58,7 +59,7 @@ export class ProfilePage {
     private alertService: AlertService,
     private userService: UserService,
     private communityService: CommunityService,
-    private toastr: ToastrService,
+    private toastr: ToastService,
     private translocoService: TranslocoService
   ) {}
 

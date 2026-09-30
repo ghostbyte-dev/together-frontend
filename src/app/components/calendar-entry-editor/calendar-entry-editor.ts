@@ -1,5 +1,5 @@
 
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ChangeDetectionStrategy } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -7,16 +7,17 @@ import {
   Validators,
 } from '@angular/forms';
 import { TranslocoModule } from '@jsverse/transloco';
-import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { CalendarEntry } from 'src/app/models/calendarEntry.model';
 import { User } from 'src/app/models/user.model';
 import { AlertService } from 'src/app/services/alert.service';
 import { CalendarService } from 'src/app/services/calendar.service';
+import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
   selector: 'app-calendar-entry-editor',
   imports: [ReactiveFormsModule, TranslocoModule],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './calendar-entry-editor.html',
 })
 export class CalendarEntryEditor implements OnInit {
@@ -38,7 +39,7 @@ export class CalendarEntryEditor implements OnInit {
   constructor(
     private calendarService: CalendarService,
     private alertService: AlertService,
-    private toastrService: ToastrService
+    private toastrService: ToastService
   ) {
     this.calendarEntryForm = new FormGroup({
       name: new FormControl<string | null>('', [

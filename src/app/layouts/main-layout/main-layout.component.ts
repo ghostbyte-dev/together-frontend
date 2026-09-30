@@ -1,4 +1,4 @@
-import { Component, effect, OnDestroy, OnInit } from '@angular/core';
+import { Component, effect, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { TranslocoModule } from '@jsverse/transloco';
 import { LucideCalendar, LucideCheckCheck, LucideCircleUserRound, LucideShoppingCart, LucideWallet } from '@lucide/angular';
@@ -11,6 +11,7 @@ import { TodosService } from 'src/app/services/todos.service';
 @Component({
   selector: 'app-main-layout',
   imports: [RouterModule, TranslocoModule, LucideCalendar, LucideCheckCheck, LucideShoppingCart, LucideWallet, LucideCircleUserRound],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './main-layout.component.html',
 })
 export class MainLayoutComponent {

@@ -1,5 +1,5 @@
 
-import { Component, ElementRef, signal, ViewChild } from '@angular/core';
+import { Component, ElementRef, signal, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -8,18 +8,19 @@ import {
 } from '@angular/forms';
 import { TranslocoModule } from '@jsverse/transloco';
 import { LucideCheck, LucideCheckCheck, LucidePlus, LucideX } from '@lucide/angular';
-import { ToastrService } from 'ngx-toastr';
 import { Navbar } from 'src/app/components/navbar/navbar';
 import { PopupComponent } from 'src/app/components/popup/popup.component';
 import { PrimaryButton } from 'src/app/components/primary-button/primary-button';
 import { Todo } from 'src/app/models/todo.model';
 import { TimeAgoPipe } from 'src/app/pipes/time-ago.pipe';
 import { AlertService } from 'src/app/services/alert.service';
+import { ToastService } from 'src/app/services/toast.service';
 import { TodosService } from 'src/app/services/todos.service';
 
 @Component({
   selector: 'app-todos',
   templateUrl: './todos.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     ReactiveFormsModule,
     PrimaryButton,
@@ -71,7 +72,7 @@ export class Todos {
   constructor(
     private todosService: TodosService,
     private alertService: AlertService,
-    private toastr: ToastrService
+    private toastr: ToastService
   ) {}
 
   get createNameField() {

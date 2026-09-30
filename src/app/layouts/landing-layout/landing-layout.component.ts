@@ -1,4 +1,4 @@
-import { Component, computed, inject, OnInit } from '@angular/core';
+import { Component, computed, inject, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { Footer } from 'src/app/components/footer/footer';
@@ -9,6 +9,7 @@ import { LucideArrowRight } from '@lucide/angular';
 @Component({
   selector: 'app-landing-layout',
   imports: [RouterModule, LucideArrowRight, Footer, TranslocoModule, LanguageSwitcher],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './landing-layout.component.html',
 })
 export class LandingLayoutComponent {

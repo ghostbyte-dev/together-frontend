@@ -53,7 +53,7 @@
               <span class="ml-2 text-xs px-2 py-0.5 rounded-full border border-white/20">{{t('admin')}}</span>
               }
             </div>
-            <span class="text-xs text-gray-400">{{t('joinCode', {code: community?.code})}}</span>
+            <span class="text-xs text-gray-400">{{t('joinCode', {code: $safeNavigationMigration(community?.code)})}}</span>
 
           </div>
 
@@ -71,7 +71,7 @@
               <span class="ml-2 text-xs px-2 py-0.5 rounded-full border border-white/20">{{t('admin')}}</span>
               }
             </div>
-            <span class="text-xs text-gray-400">{{t('joinCode', {code: community?.code})}}</span>
+            <span class="text-xs text-gray-400">{{t('joinCode', {code: $safeNavigationMigration(community?.code)})}}</span>
           </div>
 
           <div class="px-6 py-3">
@@ -106,7 +106,7 @@
 
         <p class="text-sm mt-6 mb-4">Avatar</p>
         <div class="relative w-20 h-20 group clickable" (click)="showImageUploadPopup = true">
-          <img [src]="user()?.avatar" class="w-20 h-20 rounded-full border border-gray-700 object-cover"
+          <img [src]="$safeNavigationMigration(user()?.avatar)" class="w-20 h-20 rounded-full border border-gray-700 object-cover"
             alt="Profile Image" />
 
           <div

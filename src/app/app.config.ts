@@ -1,10 +1,9 @@
 // app.config.ts
 import { ApplicationConfig, provideZoneChangeDetection, importProvidersFrom } from '@angular/core';
 import { PreloadAllModules, provideRouter, withPreloading } from '@angular/router';
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi, withXhr } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideServiceWorker } from '@angular/service-worker';
-import { provideToastr } from 'ngx-toastr';
 
 import { environment } from 'src/environments/environment';
 import { TranslocoRootModule } from './transloco-root.module';
@@ -20,16 +19,10 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
 
     // HTTP Client (replaces HttpClientModule)
-    provideHttpClient(withInterceptorsFromDi()),
+    provideHttpClient(withXhr(), withInterceptorsFromDi()),
 
     // Animations (replaces BrowserAnimationsModule)
     provideAnimations(),
-
-    // Toastr notification config
-    provideToastr({
-      toastClass: 'custom-toast',
-      positionClass: 'toast-top-left'
-    }),
 
     // Service Worker (replaces ServiceWorkerModule.register)
     provideServiceWorker('ngsw-worker.js', {

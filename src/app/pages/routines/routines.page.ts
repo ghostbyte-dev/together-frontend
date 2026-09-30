@@ -1,5 +1,5 @@
 
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { TranslocoModule } from '@jsverse/transloco';
 import { LucideArrowLeft, LucidePlus } from '@lucide/angular';
@@ -14,6 +14,7 @@ import { CalendarService } from 'src/app/services/calendar.service';
 @Component({
   selector: 'app-routines',
   templateUrl: './routines.page.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     RouterModule,
     RoutineEditorComponent,

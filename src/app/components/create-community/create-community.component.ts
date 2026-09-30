@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import {
   FormGroup,
   FormControl,
@@ -6,16 +6,17 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { CommunityService } from 'src/app/services/community.service';
 import { UserService } from 'src/app/services/user.service';
 import { PrimaryButton } from '../primary-button/primary-button';
 import { TranslocoModule } from '@jsverse/transloco';
+import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
   selector: 'app-create-community',
   templateUrl: './create-community.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [ReactiveFormsModule, PrimaryButton, TranslocoModule],
 })
 export class CreateCommunityComponent implements OnInit {
@@ -29,7 +30,7 @@ export class CreateCommunityComponent implements OnInit {
     private userService: UserService,
     private communityService: CommunityService,
     private router: Router,
-    private toastr: ToastrService
+    private toastr: ToastService
   ) {
     this.communityForm = new FormGroup({
       name: new FormControl<string | null>('', [

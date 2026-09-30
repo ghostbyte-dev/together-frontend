@@ -6,6 +6,7 @@ import {
   OnDestroy,
   OnInit,
   Output,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import {
   FormControl,
@@ -25,6 +26,7 @@ import { CommunityService } from 'src/app/services/community.service';
   selector: 'app-routine-editor',
   templateUrl: './routine-editor.component.html',
   imports: [ReactiveFormsModule, LucideX, TranslocoModule],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: true,
 })
 export class RoutineEditorComponent implements OnInit, OnDestroy {

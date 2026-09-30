@@ -1,4 +1,4 @@
-import { Component, computed, effect, OnInit } from '@angular/core';
+import { Component, computed, effect, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { JoinCommunityComponent } from 'src/app/components/join-community/join-community.component';
 import { PopupComponent } from 'src/app/components/popup/popup.component';
@@ -18,16 +18,17 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { ToastrService } from 'ngx-toastr';
 import { ProfileImageEditorComponent } from 'src/app/components/profile-image-editor/profile-image-editor.component';
 import { PrimaryButton } from 'src/app/components/primary-button/primary-button';
 import { TranslocoModule } from '@jsverse/transloco';
 import { LanguageSwitcher } from "src/app/components/language-switcher/language-switcher";
 import { LucideArrowLeft, LucideArrowRight, LucideHousePlus, LucideLogOut, LucidePen, LucideSettings } from '@lucide/angular';
+import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
   selector: 'app-onboarding',
   templateUrl: './onboarding.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     PopupComponent,
     JoinCommunityComponent,
@@ -102,7 +103,7 @@ export class OnboardingComponent implements OnInit {
     private authService: AuthService,
     private alertService: AlertService,
     private router: Router,
-    private toastr: ToastrService
+    private toastr: ToastService
   ) {
     effect(() => {
       this.nameUpdateEditorForm.controls.name.setValue(this.user()?.name);

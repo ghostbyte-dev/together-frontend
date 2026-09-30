@@ -1,9 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { LucideDynamicIcon, LucideIconInput } from '@lucide/angular';
 
 @Component({
   selector: 'app-why-card',
   imports: [LucideDynamicIcon],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './why-card.html',
 })
 export class WhyCard {

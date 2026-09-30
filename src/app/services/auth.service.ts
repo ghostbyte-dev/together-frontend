@@ -6,7 +6,7 @@ import { ApiService } from './api.service';
 import { AlertService } from './alert.service';
 import { StorageService } from './storage.service';
 import { ApiResponse } from '../models/api-response';
-import { ToastrService } from 'ngx-toastr';
+import { ToastService } from './toast.service';
 
 @Injectable({
   providedIn: 'root',
@@ -22,7 +22,7 @@ export class AuthService {
     private apiService: ApiService,
     private alertService: AlertService,
     private storageService: StorageService,
-    private toastr: ToastrService
+    private toastr: ToastService
   ) {
     this.helper = new JwtHelperService();
     this.initializeValues();

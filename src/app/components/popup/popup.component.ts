@@ -8,6 +8,7 @@ import {
   OnDestroy,
   Output,
   SimpleChanges,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { LucideX } from '@lucide/angular';
 
@@ -15,6 +16,7 @@ import { LucideX } from '@lucide/angular';
   selector: 'app-popup',
   templateUrl: './popup.component.html',
   imports: [LucideX],
+  changeDetection: ChangeDetectionStrategy.Eager,
   animations: [
     trigger('fadeScale', [
       transition(':enter', [

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -12,6 +12,7 @@ import { AuthService } from 'src/app/services/auth.service';
 @Component({
   selector: 'app-reset-password',
   imports: [ReactiveFormsModule, TranslocoModule],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './reset-password.html',
 })
 export class ResetPassword implements OnInit {

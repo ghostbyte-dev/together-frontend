@@ -1,9 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { LucideDynamicIcon, LucideIconInput } from '@lucide/angular';
 
 @Component({
   selector: 'app-feature-card',
   imports: [LucideDynamicIcon],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './feature-card.html',
 })
 export class FeatureCard {

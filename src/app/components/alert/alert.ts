@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AlertService } from 'src/app/services/alert.service';
 
@@ -6,6 +6,7 @@ import { AlertService } from 'src/app/services/alert.service';
   selector: 'app-alert',
   standalone: true,
   imports: [],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './alert.html',
 })
 export class AlertComponent {

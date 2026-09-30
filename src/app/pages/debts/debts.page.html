@@ -59,7 +59,7 @@
   }
 
   <app-popup [show]="clearOffEditorBalance !== null" (close)="clearOffEditorBalance = null"
-    [title]="clearOffEditorBalance?.debitor?.name">
+    [title]="$safeNavigationMigration(clearOffEditorBalance?.debitor?.name)">
     <form [formGroup]="clearOffBalanceEditorForm" (ngSubmit)="clearOffBalance(clearOffEditorBalance)" class="space-y-4">
       <input type="number" formControlName="amount" placeholder="Amount"
         class="w-full bg-gray-800 border border-gray-600 rounded p-2 text-white">

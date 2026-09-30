@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { TranslocoModule } from '@jsverse/transloco';
 import {
@@ -16,6 +16,7 @@ import { DebtService } from 'src/app/services/debt.service';
 @Component({
   selector: 'app-debts-history',
   templateUrl: './debts-history.page.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     RouterModule,
     Navbar,

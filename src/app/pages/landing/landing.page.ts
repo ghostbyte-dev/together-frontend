@@ -1,4 +1,4 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component, computed, inject, ChangeDetectionStrategy } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { TranslocoModule } from '@jsverse/transloco';
 import {
@@ -23,6 +23,7 @@ import { AuthService } from 'src/app/services/auth.service';
 @Component({
   selector: 'app-landing',
   templateUrl: './landing.page.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     RouterModule,
     FeatureCard,

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -11,6 +11,7 @@ import { AuthService } from 'src/app/services/auth.service';
 @Component({
   selector: 'app-request-password-reset',
   imports: [ReactiveFormsModule, TranslocoModule],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './request-password-reset.html',
 })
 export class RequestPasswordReset {

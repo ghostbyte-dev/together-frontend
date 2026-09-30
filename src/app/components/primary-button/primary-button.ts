@@ -1,10 +1,11 @@
 
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ChangeDetectionStrategy } from '@angular/core';
 import { LucideLoader } from '@lucide/angular';
 
 @Component({
   selector: 'app-primary-button',
   imports: [LucideLoader],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './primary-button.html',
 })
 export class PrimaryButton {

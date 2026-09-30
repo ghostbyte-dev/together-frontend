@@ -3,6 +3,7 @@ import {
   computed,
   effect,
   signal,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { RequestAdapter } from 'src/app/models/request.adapter';
 import { Request } from 'src/app/models/request.model';
@@ -10,13 +11,14 @@ import { CommunityService } from 'src/app/services/community.service';
 import { UserService } from 'src/app/services/user.service';
 import { Subscription } from 'rxjs';
 
-import { ToastrService } from 'ngx-toastr';
 import { LucideCheck, LucideX } from '@lucide/angular';
+import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
   selector: 'app-open-requests',
   templateUrl: './open-requests.component.html',
   imports: [LucideX, LucideCheck],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: true,
 })
 export class OpenRequestsComponent {
@@ -29,7 +31,7 @@ export class OpenRequestsComponent {
     private communityService: CommunityService,
     private requestAdapter: RequestAdapter,
     private userService: UserService,
-    private toastr: ToastrService
+    private toastr: ToastService
   ) {
     effect(() => {
       const community = this.communityService.activeCommunity();

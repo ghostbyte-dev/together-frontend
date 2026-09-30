@@ -1,11 +1,12 @@
 
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { CalendarEntry } from 'src/app/models/calendarEntry.model';
 
 @Component({
     selector: 'app-task-card',
     templateUrl: './task-card.component.html',
     imports: [],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: true
 })
 export class TaskCardComponent implements OnInit {

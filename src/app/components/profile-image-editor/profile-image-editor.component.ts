@@ -4,6 +4,7 @@ import {
   EventEmitter,
   Output,
   SecurityContext,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import {
@@ -11,15 +12,16 @@ import {
   ImageCropperComponent,
   LoadedImage,
 } from 'ngx-image-cropper';
-import { ToastrService } from 'ngx-toastr';
 import { ApiService } from 'src/app/services/api.service';
 import { UserService } from 'src/app/services/user.service';
 import { PrimaryButton } from '../primary-button/primary-button';
 import { TranslocoModule } from '@jsverse/transloco';
+import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
   selector: 'app-profile-image-editor',
   templateUrl: './profile-image-editor.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [ImageCropperComponent, PrimaryButton, TranslocoModule],
 })
 export class ProfileImageEditorComponent {
@@ -36,7 +38,7 @@ export class ProfileImageEditorComponent {
     private apiService: ApiService,
     private domSanitizer: DomSanitizer,
     private userService: UserService,
-    private toastr: ToastrService
+    private toastr: ToastService
   ) {}
 
   async saveImage() {

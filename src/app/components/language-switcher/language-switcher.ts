@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { TranslocoService } from '@jsverse/transloco';
 
 @Component({
   selector: 'app-language-switcher',
   imports: [],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './language-switcher.html',
 })
 export class LanguageSwitcher {
